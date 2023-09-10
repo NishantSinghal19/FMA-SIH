@@ -21,7 +21,7 @@ class MinePageContainerScreen extends StatelessWidget {
                 onGenerateRoute: (routeSetting) => PageRouteBuilder(
                     pageBuilder: (ctx, ani, ani1) =>
                         getCurrentPage(routeSetting.name!),
-                    transitionDuration: Duration(seconds: 0))),
+                    transitionDuration: Duration(milliseconds: 20))),
             bottomNavigationBar:
                 CustomBottomAppBar(onChanged: (BottomBarEnum type) {
               Navigator.pushNamed(

@@ -9,10 +9,11 @@ class MinePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+        minimum: EdgeInsets.fromLTRB(0, 10, 0, 0),
         child: Scaffold(
             backgroundColor: ColorConstant.whiteA700,
             appBar: CustomAppBar(
-                height: getVerticalSize(52),
+                height: getVerticalSize(55),
                 title: Container(
                     width: getHorizontalSize(111),
                     margin: getMargin(left: 24),

@@ -40,7 +40,7 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
       color: ColorConstant.whiteA700,
       child: SizedBox(
         height: getVerticalSize(
-          84,
+          65,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
