@@ -16,7 +16,7 @@ class ForgotPasswordScreen extends StatelessWidget {
             resizeToAvoidBottomInset: false,
             body: Container(
                 width: double.maxFinite,
-                padding: getPadding(left: 24, top: 8, right: 24, bottom: 8),
+                padding: getPadding(left: 24, top: 25, right: 24, bottom: 8),
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -35,7 +35,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                           width: getHorizontalSize(280),
                           margin: getMargin(top: 66)),
                       Padding(
-                          padding: getPadding(top: 41),
+                          padding: getPadding(top: 48),
                           child: Text("Forget Password",
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.left,

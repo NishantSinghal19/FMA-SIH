@@ -84,8 +84,6 @@ class _LoginPageState extends State<LoginPage>
                                               .imgCheckmarkIndigoA100)),
                                   suffixConstraints: BoxConstraints(
                                       maxHeight: getVerticalSize(26)),
-                                  fontStyle: TextFormFieldFontStyle
-                                      .PoppinsRegular11Gray500,
                                 ),
                                 Padding(
                                     padding: getPadding(top: 24),
@@ -115,8 +113,6 @@ class _LoginPageState extends State<LoginPage>
                                               .imgCheckmarkIndigoA100)),
                                   suffixConstraints: BoxConstraints(
                                       maxHeight: getVerticalSize(26)),
-                                  fontStyle: TextFormFieldFontStyle
-                                      .PoppinsRegular11Gray500,
                                 ),
                                 Padding(
                                     padding: getPadding(top: 24),

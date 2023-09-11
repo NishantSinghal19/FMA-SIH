@@ -1,3 +1,4 @@
+import 'package:client_app/widgets/app_bar/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:client_app/core/app_export.dart';
 import 'package:client_app/widgets/custom_button.dart';
@@ -22,17 +23,19 @@ class _SignUpPageState extends State<SignUpPage>
 
   TextEditingController frame214Controller = TextEditingController();
 
-  List<String> dropdownItemList = [
-    "Item One",
-    "Item Two",
-    "Item Three",
-  ];
+  var passwordVisible = false, confirmPasswordVisible = false;
 
-  List<String> dropdownItemList1 = [
-    "Item One",
-    "Item Two",
-    "Item Three",
-  ];
+  // List<String> dropdownItemList = [
+  //   "Item One",
+  //   "Item Two",
+  //   "Item Three",
+  // ];
+
+  // List<String> dropdownItemList1 = [
+  //   "Item One",
+  //   "Item Two",
+  //   "Item Three",
+  // ];
 
   @override
   bool get wantKeepAlive => true;
@@ -51,13 +54,20 @@ class _SignUpPageState extends State<SignUpPage>
                 Padding(
                   padding: getPadding(
                     left: 24,
-                    top: 60,
+                    top: 24,
                     right: 24,
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
+                      Text(
+                        "Sign Up",
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.left,
+                        style: AppStyle.txtPoppinsMedium30,
+                      ),
+                      Padding(padding: getPadding(bottom: 40)),
                       Text(
                         "Name",
                         overflow: TextOverflow.ellipsis,
@@ -72,20 +82,17 @@ class _SignUpPageState extends State<SignUpPage>
                           left: 1,
                         ),
                         suffix: Container(
-                          margin: getMargin(
-                            left: 30,
-                            top: 4,
-                            bottom: 4,
-                          ),
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: ColorConstant.indigoA100,
-                              width: getHorizontalSize(
-                                1,
-                              ),
-                              strokeAlign: strokeAlignCenter,
-                            ),
-                          ),
+                          margin:
+                              getMargin(left: 30, top: 4, bottom: 4, right: 13),
+                          // decoration: BoxDecoration(
+                          //   border: Border.all(
+                          //     color: ColorConstant.indigoA100,
+                          //     width: getHorizontalSize(
+                          //       1,
+                          //     ),
+                          //     strokeAlign: strokeAlignCenter,
+                          //   ),
+                          // ),
                           child: CustomImageView(
                             svgPath: ImageConstant.imgCheckmarkIndigoA100,
                           ),
@@ -166,28 +173,21 @@ class _SignUpPageState extends State<SignUpPage>
                         focusNode: FocusNode(),
                         controller: frame213Controller,
                         hintText: "xyz123",
+                        isObscureText: passwordVisible,
                         margin: getMargin(
                           top: 1,
                         ),
-                        suffix: Container(
-                          margin: getMargin(
-                            left: 30,
-                            top: 5,
-                            bottom: 5,
-                          ),
-                          decoration: BoxDecoration(
-                            color: ColorConstant.whiteA700,
-                            border: Border.all(
-                              color: ColorConstant.indigoA100,
-                              width: getHorizontalSize(
-                                1,
-                              ),
-                              strokeAlign: strokeAlignCenter,
-                            ),
-                          ),
-                          child: CustomImageView(
+                        suffix: IconButton(
+                          icon: CustomImageView(
                             svgPath: ImageConstant.imgEye,
                           ),
+                          onPressed: () {
+                            setState(
+                              () {
+                                passwordVisible = !passwordVisible;
+                              },
+                            );
+                          },
                         ),
                         suffixConstraints: BoxConstraints(
                           maxHeight: getVerticalSize(
@@ -210,29 +210,23 @@ class _SignUpPageState extends State<SignUpPage>
                         focusNode: FocusNode(),
                         controller: frame214Controller,
                         hintText: "xyz123",
+                        isObscureText: confirmPasswordVisible,
                         margin: getMargin(
                           top: 1,
                         ),
                         textInputAction: TextInputAction.done,
-                        suffix: Container(
-                          margin: getMargin(
-                            left: 30,
-                            top: 5,
-                            bottom: 5,
-                          ),
-                          decoration: BoxDecoration(
-                            color: ColorConstant.whiteA700,
-                            border: Border.all(
-                              color: ColorConstant.indigoA100,
-                              width: getHorizontalSize(
-                                1,
-                              ),
-                              strokeAlign: strokeAlignCenter,
-                            ),
-                          ),
-                          child: CustomImageView(
+                        suffix: IconButton(
+                          icon: CustomImageView(
                             svgPath: ImageConstant.imgEye,
                           ),
+                          onPressed: () {
+                            setState(
+                              () {
+                                confirmPasswordVisible =
+                                    !confirmPasswordVisible;
+                              },
+                            );
+                          },
                         ),
                         suffixConstraints: BoxConstraints(
                           maxHeight: getVerticalSize(
@@ -240,142 +234,143 @@ class _SignUpPageState extends State<SignUpPage>
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: getPadding(
-                          top: 23,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              height: getVerticalSize(
-                                52,
-                              ),
-                              width: getHorizontalSize(
-                                155,
-                              ),
-                              child: Stack(
-                                alignment: Alignment.topLeft,
-                                children: [
-                                  CustomDropDown(
-                                    width: getHorizontalSize(
-                                      153,
-                                    ),
-                                    focusNode: FocusNode(),
-                                    icon: Container(
-                                      margin: getMargin(
-                                        left: 30,
-                                        right: 10,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                          color: ColorConstant.black900,
-                                          width: getHorizontalSize(
-                                            1,
-                                          ),
-                                          strokeAlign: strokeAlignCenter,
-                                        ),
-                                      ),
-                                      child: CustomImageView(
-                                        svgPath:
-                                            ImageConstant.imgArrowdownBlack900,
-                                      ),
-                                    ),
-                                    hintText: "20 - Jan - 1998",
-                                    variant:
-                                        DropDownVariant.UnderLineBluegray100,
-                                    fontStyle: DropDownFontStyle
-                                        .PoppinsRegular14Black900,
-                                    alignment: Alignment.bottomCenter,
-                                    items: dropdownItemList,
-                                    onChanged: (value) {},
-                                  ),
-                                  Align(
-                                    alignment: Alignment.topLeft,
-                                    child: Text(
-                                      "Date Of Birth",
-                                      overflow: TextOverflow.ellipsis,
-                                      textAlign: TextAlign.left,
-                                      style: AppStyle.txtPoppinsMedium16,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Country/Region",
-                                  overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.left,
-                                  style: AppStyle.txtPoppinsMedium16,
-                                ),
-                                CustomDropDown(
-                                  width: getHorizontalSize(
-                                    145,
-                                  ),
-                                  focusNode: FocusNode(),
-                                  icon: Container(
-                                    margin: getMargin(
-                                      left: 30,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                        color: ColorConstant.black900,
-                                        width: getHorizontalSize(
-                                          1,
-                                        ),
-                                        strokeAlign: strokeAlignCenter,
-                                      ),
-                                    ),
-                                    child: CustomImageView(
-                                      svgPath:
-                                          ImageConstant.imgArrowdownBlack900,
-                                    ),
-                                  ),
-                                  hintText: "United States",
-                                  variant: DropDownVariant.None,
-                                  fontStyle: DropDownFontStyle
-                                      .PoppinsRegular14Black900,
-                                  items: dropdownItemList1,
-                                  onChanged: (value) {},
-                                ),
-                                Padding(
-                                  padding: getPadding(
-                                    top: 6,
-                                  ),
-                                  child: SizedBox(
-                                    width: getHorizontalSize(
-                                      155,
-                                    ),
-                                    child: Divider(
-                                      height: getVerticalSize(
-                                        1,
-                                      ),
-                                      thickness: getVerticalSize(
-                                        1,
-                                      ),
-                                      color: ColorConstant.blueGray100,
-                                      indent: getHorizontalSize(
-                                        1,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
+                      // Padding(
+                      //   padding: getPadding(
+                      //     top: 23,
+                      //   ),
+                      //   child: Row(
+                      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //     children: [
+                      //       Container(
+                      //         height: getVerticalSize(
+                      //           52,
+                      //         ),
+                      //         width: getHorizontalSize(
+                      //           155,
+                      //         ),
+                      //         child: Stack(
+                      //           alignment: Alignment.topLeft,
+                      //           children: [
+                      //             CustomDropDown(
+                      //               width: getHorizontalSize(
+                      //                 153,
+                      //               ),
+                      //               focusNode: FocusNode(),
+                      //               icon: Container(
+                      //                 margin: getMargin(
+                      //                   left: 30,
+                      //                   right: 10,
+                      //                 ),
+                      //                 decoration: BoxDecoration(
+                      //                   border: Border.all(
+                      //                     color: ColorConstant.black900,
+                      //                     width: getHorizontalSize(
+                      //                       1,
+                      //                     ),
+                      //                     strokeAlign: strokeAlignCenter,
+                      //                   ),
+                      //                 ),
+                      //                 child: CustomImageView(
+                      //                   svgPath:
+                      //                       ImageConstant.imgArrowdownBlack900,
+                      //                 ),
+                      //               ),
+                      //               hintText: "20 - Jan - 1998",
+                      //               variant:
+                      //                   DropDownVariant.UnderLineBluegray100,
+                      //               fontStyle: DropDownFontStyle
+                      //                   .PoppinsRegular14Black900,
+                      //               alignment: Alignment.bottomCenter,
+                      //               items: dropdownItemList,
+                      //               onChanged: (value) {},
+                      //             ),
+                      //             Align(
+                      //               alignment: Alignment.topLeft,
+                      //               child: Text(
+                      //                 "Date Of Birth",
+                      //                 overflow: TextOverflow.ellipsis,
+                      //                 textAlign: TextAlign.left,
+                      //                 style: AppStyle.txtPoppinsMedium16,
+                      //               ),
+                      //             ),
+                      //           ],
+                      //         ),
+                      //       ),
+                      //       Column(
+                      //         crossAxisAlignment: CrossAxisAlignment.start,
+                      //         mainAxisAlignment: MainAxisAlignment.start,
+                      //         children: [
+                      //           Text(
+                      //             "Country/Region",
+                      //             overflow: TextOverflow.ellipsis,
+                      //             textAlign: TextAlign.left,
+                      //             style: AppStyle.txtPoppinsMedium16,
+                      //           ),
+                      //           CustomDropDown(
+                      //             width: getHorizontalSize(
+                      //               145,
+                      //             ),
+                      //             focusNode: FocusNode(),
+                      //             icon: Container(
+                      //               margin: getMargin(
+                      //                 left: 30,
+                      //               ),
+                      //               decoration: BoxDecoration(
+                      //                 border: Border.all(
+                      //                   color: ColorConstant.black900,
+                      //                   width: getHorizontalSize(
+                      //                     1,
+                      //                   ),
+                      //                   strokeAlign: strokeAlignCenter,
+                      //                 ),
+                      //               ),
+                      //               child: CustomImageView(
+                      //                 svgPath:
+                      //                     ImageConstant.imgArrowdownBlack900,
+                      //               ),
+                      //             ),
+                      //             hintText: "United States",
+                      //             variant: DropDownVariant.None,
+                      //             fontStyle: DropDownFontStyle
+                      //                 .PoppinsRegular14Black900,
+                      //             items: dropdownItemList1,
+                      //             onChanged: (value) {},
+                      //           ),
+                      //           Padding(
+                      //             padding: getPadding(
+                      //               top: 6,
+                      //             ),
+                      //             child: SizedBox(
+                      //               width: getHorizontalSize(
+                      //                 155,
+                      //               ),
+                      //               child: Divider(
+                      //                 height: getVerticalSize(
+                      //                   1,
+                      //                 ),
+                      //                 thickness: getVerticalSize(
+                      //                   1,
+                      //                 ),
+                      //                 color: ColorConstant.blueGray100,
+                      //                 indent: getHorizontalSize(
+                      //                   1,
+                      //                 ),
+                      //               ),
+                      //             ),
+                      //           ),
+                      //         ],
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
+
                       CustomButton(
                         height: getVerticalSize(
                           50,
                         ),
-                        text: "Login",
+                        text: "Create Account",
                         margin: getMargin(
-                          top: 23,
+                          top: 53,
                         ),
                         shape: ButtonShape.RoundedBorder13,
                       ),
@@ -383,9 +378,9 @@ class _SignUpPageState extends State<SignUpPage>
                         alignment: Alignment.center,
                         child: Padding(
                           padding: getPadding(
-                            left: 18,
-                            top: 65,
-                            right: 18,
+                            left: 13,
+                            top: 55,
+                            right: 13,
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -398,14 +393,15 @@ class _SignUpPageState extends State<SignUpPage>
                               ),
                               Padding(
                                 padding: getPadding(
-                                  left: 5,
+                                  left: 0,
                                 ),
-                                child: Text(
-                                  "Sign In",
-                                  overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.left,
-                                  style: AppStyle.txtPoppinsSemiBold16,
-                                ),
+                                child: TextButton(
+                                    child: Text("Sign In",
+                                        overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.left,
+                                        style: AppStyle.txtPoppinsSemiBold16),
+                                    onPressed: () => Navigator.popUntil(
+                                        context, ModalRoute.withName(AppRoutes.loginPage))),
                               ),
                             ],
                           ),

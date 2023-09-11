@@ -92,7 +92,17 @@ class CustomTextFormField extends StatelessWidget {
   _buildDecoration() {
     return InputDecoration(
       hintText: hintText ?? "",
-      hintStyle: _setFontStyle(),
+      hintStyle: TextStyle(
+          color: ColorConstant.gray500,
+          fontSize: getFontSize(
+            11,
+          ),
+          fontFamily: 'Poppins',
+          fontWeight: FontWeight.w400,
+          height: getVerticalSize(
+            1.55,
+          ),
+        ),
       border: _setBorderStyle(),
       enabledBorder: _setBorderStyle(),
       focusedBorder: _setBorderStyle(),
