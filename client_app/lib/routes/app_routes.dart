@@ -1,10 +1,11 @@
 import 'package:client_app/presentation/login_page/login_page.dart';
+import 'package:client_app/presentation/login_page/login_page_2.dart';
 import 'package:client_app/presentation/sign_up_page/sign_up_page.dart';
 import 'package:flutter/material.dart';
 import 'package:client_app/presentation/splash_screen/splash_screen.dart';
 import 'package:client_app/presentation/login_page_tab_container_screen/login_page_tab_container_screen.dart';
 import 'package:client_app/presentation/forgot_password_screen/forgot_password_screen.dart';
-import 'package:client_app/presentation/verify_email_screen/verify_email_screen.dart';
+import 'package:client_app/presentation/verify_otp_screen/verify_otp_screen.dart';
 import 'package:client_app/presentation/country_or_region_screen/country_or_region_screen.dart';
 import 'package:client_app/presentation/mine_page_container_screen/mine_page_container_screen.dart';
 import 'package:client_app/presentation/transfer_screen/transfer_screen.dart';
@@ -31,7 +32,7 @@ class AppRoutes {
 
   static const String forgotPasswordScreen = '/forgot_password_screen';
 
-  static const String verifyEmailScreen = '/verify_email_screen';
+  static const String verifyOtpScreen = '/verify_otp_screen';
 
   static const String countryOrRegionScreen = '/country_or_region_screen';
 
@@ -72,7 +73,7 @@ class AppRoutes {
     splashScreen: (context) => SplashScreen(),
     loginPageTabContainerScreen: (context) => LoginPageTabContainerScreen(),
     forgotPasswordScreen: (context) => ForgotPasswordScreen(),
-    verifyEmailScreen: (context) => VerifyEmailScreen(),
+    verifyOtpScreen: (context) => VerifyOtpScreen(),
     countryOrRegionScreen: (context) => CountryOrRegionScreen(),
     minePageContainerScreen: (context) => MinePageContainerScreen(),
     transferScreen: (context) => TransferScreen(),
@@ -86,7 +87,7 @@ class AppRoutes {
     profileScreen: (context) => ProfileScreen(),
     settingsScreen: (context) => SettingsScreen(),
     appNavigationScreen: (context) => AppNavigationScreen(),
-    loginPage: (context) => LoginPage(),
+    loginPage: (context) => LoginScreen2(),
     signUpPage: (context) => SignUpPage(),
   };
 }

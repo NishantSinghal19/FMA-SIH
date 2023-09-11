@@ -90,6 +90,6 @@ class ForgotPasswordScreen extends StatelessWidget {
   }
 
   onTapSendemail(BuildContext context) {
-    Navigator.pushNamed(context, AppRoutes.verifyEmailScreen);
+    Navigator.pushNamed(context, AppRoutes.verifyOtpScreen);
   }
 }

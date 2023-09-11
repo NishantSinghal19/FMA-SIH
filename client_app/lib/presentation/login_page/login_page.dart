@@ -17,10 +17,6 @@ class LoginPage extends StatefulWidget {
 }
 
 // ignore_for_file: must_be_immutable
-
-// ignore_for_file: must_be_immutable
-
-// ignore_for_file: must_be_immutable
 class _LoginPageState extends State<LoginPage>
     with AutomaticKeepAliveClientMixin<LoginPage> {
   TextEditingController emailOneController = TextEditingController();

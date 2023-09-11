@@ -4,6 +4,8 @@ import 'package:client_app/core/app_export.dart';
 import 'package:client_app/widgets/custom_button.dart';
 import 'package:client_app/widgets/custom_drop_down.dart';
 import 'package:client_app/widgets/custom_text_form_field.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:client_app/services/signup_service.dart';
 
 // ignore_for_file: must_be_immutable
 class SignUpPage extends StatefulWidget {
@@ -25,17 +27,25 @@ class _SignUpPageState extends State<SignUpPage>
 
   var passwordVisible = false, confirmPasswordVisible = false;
 
-  // List<String> dropdownItemList = [
-  //   "Item One",
-  //   "Item Two",
-  //   "Item Three",
-  // ];
+  var signupModel = {
+    "name": "",
+    "email": "",
+    "phone": "",
+    "password": "",
+    "confirmPassword": "",
+  };
 
-  // List<String> dropdownItemList1 = [
-  //   "Item One",
-  //   "Item Two",
-  //   "Item Three",
-  // ];
+  showToast(String message) {
+    Fluttertoast.showToast(
+        msg: message,
+        toastLength: Toast.LENGTH_SHORT, //duration
+        gravity: ToastGravity.BOTTOM, //location
+        timeInSecForIosWeb: 1,
+        backgroundColor: const Color.fromARGB(255, 255, 143, 135), //background color
+        textColor: Colors.white, //text Color
+        fontSize: 16.0 //font size
+        );
+  }
 
   @override
   bool get wantKeepAlive => true;
@@ -61,12 +71,12 @@ class _SignUpPageState extends State<SignUpPage>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(
-                        "Sign Up",
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.left,
-                        style: AppStyle.txtPoppinsMedium30,
-                      ),
+                      // Text(
+                      //   "Sign Up",
+                      //   overflow: TextOverflow.ellipsis,
+                      //   textAlign: TextAlign.left,
+                      //   style: AppStyle.txtPoppinsMedium30,
+                      // ),
                       Padding(padding: getPadding(bottom: 40)),
                       Text(
                         "Name",
@@ -84,15 +94,6 @@ class _SignUpPageState extends State<SignUpPage>
                         suffix: Container(
                           margin:
                               getMargin(left: 30, top: 4, bottom: 4, right: 13),
-                          // decoration: BoxDecoration(
-                          //   border: Border.all(
-                          //     color: ColorConstant.indigoA100,
-                          //     width: getHorizontalSize(
-                          //       1,
-                          //     ),
-                          //     strokeAlign: strokeAlignCenter,
-                          //   ),
-                          // ),
                           child: CustomImageView(
                             svgPath: ImageConstant.imgCheckmarkIndigoA100,
                           ),
@@ -379,7 +380,7 @@ class _SignUpPageState extends State<SignUpPage>
                         child: Padding(
                           padding: getPadding(
                             left: 13,
-                            top: 55,
+                            top: 25,
                             right: 13,
                           ),
                           child: Row(
@@ -400,8 +401,52 @@ class _SignUpPageState extends State<SignUpPage>
                                         overflow: TextOverflow.ellipsis,
                                         textAlign: TextAlign.left,
                                         style: AppStyle.txtPoppinsSemiBold16),
-                                    onPressed: () => Navigator.popUntil(
-                                        context, ModalRoute.withName(AppRoutes.loginPage))),
+                                    onPressed: () {
+                                      signupModel["name"] =
+                                          languageController.text;
+                                      signupModel["email"] =
+                                          emailOneController.text;
+                                      signupModel["phone"] =
+                                          frame212Controller.text;
+                                      signupModel["password"] =
+                                          frame213Controller.text;
+                                      signupModel["confirmPassword"] =
+                                          frame214Controller.text;
+
+                                      if (signupModel["name"]!.isEmpty) {
+                                        showToast("Please enter name");
+                                        return;
+                                      }
+                                      if (signupModel["email"]!.isEmpty) {
+                                        showToast("Please enter email");
+                                        return;
+                                      }
+                                      if (signupModel["phone"]!.isEmpty || signupModel["phone"]!.length != 10) {
+                                        showToast("Please enter phone number with 10 digits");
+                                        return;
+                                      }
+                                      if (signupModel["password"]!.isEmpty) {
+                                        showToast("Please enter password");
+                                        return;
+                                      }
+                                      if (signupModel["confirmPassword"]!
+                                          .isEmpty) {
+                                        showToast(
+                                            "Please enter confirm password");
+                                        return;
+                                      }
+                                      if (signupModel["password"] !=
+                                          signupModel["confirmPassword"]) {
+                                        showToast(
+                                            "Password and confirm password does not match");
+                                        return;
+                                      }
+
+                                      Navigator.popUntil(
+                                          context,
+                                          ModalRoute.withName(
+                                              AppRoutes.loginPage));
+                                    }),
                               ),
                             ],
                           ),

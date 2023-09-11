@@ -10,8 +10,8 @@ import 'package:client_app/services/localstorage_service.dart';
 
 var serverUrl = dotenv.env['SERVER_URL'];
 
-Future<LoginResponse> createLoginResponse(
-    String phone, String password, BuildContext? currentContext) async {
+Future<LoginResponse> loginService(
+    String phone, BuildContext? currentContext) async {
   final response = await http.post(
     Uri.parse(serverUrl! + 'users/login'),
     headers: <String, String>{
@@ -19,14 +19,12 @@ Future<LoginResponse> createLoginResponse(
     },
     body: jsonEncode(<String, String>{
       'phone': phone,
-      'password': password,
     }),
   );
 
   if (response.statusCode == 200) {
     setUserId(jsonDecode(response.body)['user']['_id']);
     setPhone(phone);
-    setPassword(password);
     setJWTtoken(jsonDecode(response.body)['token']);
     setTokenExpiryTime(jsonDecode(response.body)['totalTime']);
     setTokenIssueTime(DateTime.now().toString());
@@ -40,16 +38,16 @@ Future<LoginResponse> createLoginResponse(
 
 class LoginResponse {
   final String phone;
-  final String token;
+  final String otp;
   final bool success;
 
   LoginResponse(
-      {required this.phone, required this.token, required this.success});
+      {required this.phone, required this.otp, required this.success});
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) {
     return LoginResponse(
       phone: json['user']['phone'],
-      token: json['token'],
+      otp: json['otp'],
       success: json['success'],
     );
   }

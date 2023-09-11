@@ -931,7 +931,7 @@ class AppNavigationScreen extends StatelessWidget {
   }
 
   onTapVerifyEmail(BuildContext context) {
-    Navigator.pushNamed(context, AppRoutes.verifyEmailScreen);
+    Navigator.pushNamed(context, AppRoutes.verifyOtpScreen);
   }
 
   onTapCountryorRegion(BuildContext context) {
