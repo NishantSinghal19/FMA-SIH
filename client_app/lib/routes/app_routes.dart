@@ -1,3 +1,5 @@
+import 'package:client_app/presentation/login_page/login_page.dart';
+import 'package:client_app/presentation/sign_up_page/sign_up_page.dart';
 import 'package:flutter/material.dart';
 import 'package:client_app/presentation/splash_screen/splash_screen.dart';
 import 'package:client_app/presentation/login_page_tab_container_screen/login_page_tab_container_screen.dart';
@@ -83,6 +85,8 @@ class AppRoutes {
     atmLocationScreen: (context) => AtmLocationScreen(),
     profileScreen: (context) => ProfileScreen(),
     settingsScreen: (context) => SettingsScreen(),
-    appNavigationScreen: (context) => AppNavigationScreen()
+    appNavigationScreen: (context) => AppNavigationScreen(),
+    loginPage: (context) => LoginPage(),
+    signUpPage: (context) => SignUpPage(),
   };
 }

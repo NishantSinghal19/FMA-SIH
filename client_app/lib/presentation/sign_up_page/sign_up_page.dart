@@ -40,7 +40,7 @@ class _SignUpPageState extends State<SignUpPage>
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.transparent,
+        // backgroundColor: Colors.transparent,
         resizeToAvoidBottomInset: false,
         body: SizedBox(
           width: size.width,
@@ -51,7 +51,7 @@ class _SignUpPageState extends State<SignUpPage>
                 Padding(
                   padding: getPadding(
                     left: 24,
-                    top: 70,
+                    top: 60,
                     right: 24,
                   ),
                   child: Column(
@@ -383,9 +383,9 @@ class _SignUpPageState extends State<SignUpPage>
                         alignment: Alignment.center,
                         child: Padding(
                           padding: getPadding(
-                            left: 27,
-                            top: 73,
-                            right: 28,
+                            left: 18,
+                            top: 65,
+                            right: 18,
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,

@@ -5,10 +5,29 @@ import 'package:client_app/presentation/national_bank_page/national_bank_page.da
 import 'package:client_app/presentation/statistics_tab_container_page/statistics_tab_container_page.dart';
 import 'package:client_app/widgets/custom_bottom_app_bar.dart';
 import 'package:client_app/widgets/custom_floating_button.dart';
+import 'package:client_app/services/localstorage_service.dart';
 
 // ignore_for_file: must_be_immutable
-class MinePageContainerScreen extends StatelessWidget {
+class MinePageContainerScreen extends StatefulWidget {
+  MinePageContainerScreen({Key? key}) : super(key: key);
+
+  @override
+  _MinePageContainerScreenState createState() =>
+      _MinePageContainerScreenState();
+}
+
+class _MinePageContainerScreenState extends State<MinePageContainerScreen> {
   GlobalKey<NavigatorState> navigatorKey = GlobalKey();
+  late bool _isLoggedIn;
+
+  @override
+  void initState() {
+    super.initState();
+
+    getIsLoggedIn().then((isLoggedIn) { 
+      _isLoggedIn = isLoggedIn ?? false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +44,7 @@ class MinePageContainerScreen extends StatelessWidget {
             bottomNavigationBar:
                 CustomBottomAppBar(onChanged: (BottomBarEnum type) {
               Navigator.pushNamed(
-                  navigatorKey.currentContext!, getCurrentRoute(type));
+                  navigatorKey.currentContext!, getCurrentRoute(type, _isLoggedIn));
             }),
             floatingActionButton: CustomFloatingButton(
                 height: 50,
@@ -39,7 +58,7 @@ class MinePageContainerScreen extends StatelessWidget {
   }
 
   ///Handling route based on bottom click actions
-  String getCurrentRoute(BottomBarEnum type) {
+  String getCurrentRoute(BottomBarEnum type, bool isLoggedIn) {
     switch (type) {
       case BottomBarEnum.Lock:
         return AppRoutes.minePage;
@@ -48,7 +67,7 @@ class MinePageContainerScreen extends StatelessWidget {
       case BottomBarEnum.Computergray500:
         return AppRoutes.nationalBankPage;
       case BottomBarEnum.Searchgray5002:
-        return "/";
+        return isLoggedIn ? AppRoutes.profileScreen : AppRoutes.loginPage;
       default:
         return "/";
     }

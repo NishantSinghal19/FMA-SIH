@@ -71,7 +71,9 @@ class ForgotPasswordScreen extends StatelessWidget {
                           shape: TextFormFieldShape.RoundedBorder13,
                           padding: TextFormFieldPadding.PaddingAll12,
                           textInputAction: TextInputAction.done,
-                          textInputType: TextInputType.emailAddress),
+                          textInputType: TextInputType.emailAddress,
+                          fontStyle: TextFormFieldFontStyle.PoppinsRegular11Gray500,),
+                          
                       CustomButton(
                           height: getVerticalSize(50),
                           text: "Send Email",

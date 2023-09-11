@@ -3,8 +3,7 @@ import 'dart:async';
 import 'package:client_app/core/app_export.dart';
 import 'package:client_app/routes/app_routes.dart';
 
-class SplashScreen extends StatefulWidget{
-
+class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
@@ -13,9 +12,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 2),
-            ()=>Navigator.pushReplacementNamed(context, AppRoutes.minePageContainerScreen)
-    );
+    Timer(const Duration(milliseconds: 1500),
+        () => Navigator.pushReplacementNamed(context, AppRoutes.loginPage));
   }
 
   @override
@@ -48,11 +46,7 @@ class _SplashScreenState extends State<SplashScreen> {
                       width: getHorizontalSize(
                         37,
                       ),
-                      margin: getMargin(
-                        top: 9,
-                        bottom: 8,
-                        left: 8
-                      ),
+                      margin: getMargin(top: 9, bottom: 8, left: 8),
                     ),
                     Expanded(
                       child: Padding(
