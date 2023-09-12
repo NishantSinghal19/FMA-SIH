@@ -1,5 +1,6 @@
 
-const User = require("../models/user.model");
+const { User } = require("../models");
+const { to, ReE, ReS } = require('../services/util.service');
 
 const {
   PHONE_NOT_FOUND_ERR,
@@ -8,8 +9,8 @@ const {
   INCORRECT_OTP_ERR,
   ACCESS_DENIED_ERR,
 } = require("../utils/auth.errors");
-
-const { checkPassword, hashPassword } = require("../utils/password.util");
+const config = require('config');
+// const { checkPassword, hashPassword } = require("../utils/password.util");
 const { createJwtToken } = require("../utils/token.util");
 
 const { generateOTP, fast2sms } = require("../utils/otp.util");
@@ -18,29 +19,44 @@ const { generateOTP, fast2sms } = require("../utils/otp.util");
 
 exports.createNewUser = async (req, res, next) => {
   try {
-    let { phone, name } = req.body;
-
-
+    let { phone, first, last } = req.body;
+    console.log(phone);
+    // console.log(User)
     // check duplicate phone Number
     const phoneExist = await User.findOne({ phone });
 
     if (phoneExist) {
-      next({ status: 400, message: PHONE_ALREADY_EXISTS_ERR });
-      return;
+      // next({ status: 400, message: PHONE_ALREADY_EXISTS_ERR });
+      return ReE(res,PHONE_ALREADY_EXISTS_ERR);
     }
 
 
     // create new user
     const createUser = new User({
       phone,
-      name,
-      role : phone === process.env.ADMIN_PHONE ? "ADMIN" :"USER"
+      first,
+      last,
+      role: phone === config.get("admin_phone") ? "admin" : "user"
     });
 
     // save user
 
     const user = await createUser.save();
 
+    // generate otp
+    const otp = generateOTP(6);
+    // save otp to user collection
+    user.phoneOtp = otp;
+    await user.save();
+    // console.log("user is: ",user);
+    // send otp to phone number
+    await fast2sms(
+      {
+        message: `Your OTP is ${otp}`,
+        contactNumber: user.phone,
+      },
+      // next
+    );
     res.status(200).json({
       type: "success",
       message: "Account created OTP sended to mobile number",
@@ -48,20 +64,6 @@ exports.createNewUser = async (req, res, next) => {
         userId: user._id,
       },
     });
-
-    // generate otp
-    const otp = generateOTP(6);
-    // save otp to user collection
-    user.phoneOtp = otp;
-    await user.save();
-    // send otp to phone number
-    await fast2sms(
-      {
-        message: `Your OTP is ${otp}`,
-        contactNumber: user.phone,
-      },
-      next
-    );
   } catch (error) {
     next(error);
   }
@@ -154,7 +156,7 @@ exports.fetchCurrentUser = async (req, res, next) => {
       type: "success",
       message: "fetch current user",
       data: {
-        user:currentUser,
+        user: currentUser,
       },
     });
   } catch (error) {
@@ -172,7 +174,7 @@ exports.handleAdmin = async (req, res, next) => {
       type: "success",
       message: "Okay you are admin!!",
       data: {
-        user:currentUser,
+        user: currentUser,
       },
     });
   } catch (error) {

@@ -1,6 +1,7 @@
 
 const fast2sms = require("fast-two-sms");
-const {FAST2SMS} = require("../config");
+// const {FAST2SMS} = require("../config");
+const config = require('config');
 
 exports.generateOTP = (otp_length) => {
   // Declare a digits variable

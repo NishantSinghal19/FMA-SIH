@@ -2,21 +2,26 @@ var express = require('express');
 var router = express.Router();
 
 /* GET home page. */
-const checkAuth = require("../middlewares/checkAuth");
-const checkAdmin = require("../middlewares/checkAdmin");
+const checkAuth = require("../middleware/checkAuth");
+const checkAdmin = require("../middleware/checkAdmin");
 const {
   fetchCurrentUser,
   loginUser,
-  registerUser,
+  
   verifyOTP,
-  handleAdmin
+  handleAdmin,
+  createNewUser
 } = require("../controllers/auth.controller.js");
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
   res.render('index', { title: 'Express' });
 });
-router.post("/register", registerUser);
-router.post("/login_with_phone", loginUser);
-router.post("/verify", verifyOTP);
+router.post("/register", createNewUser);
+router.post("/login_with_phone", function(req, res){
+  loginUser
+});
+router.post("/verify", function(req, res){
+  verifyOTP
+});
 router.get("/me", checkAuth, fetchCurrentUser);
 router.get("/admin", checkAuth, checkAdmin, handleAdmin);
 

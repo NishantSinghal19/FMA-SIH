@@ -1,13 +1,13 @@
 "use strict";
 const mongoose = require('mongoose');
 
-const User = mongoose.model('Users', new mongoose.Schema({
+const User = mongoose.model('User', new mongoose.Schema({
     first: { type: String, required: [true, 'First name is required'] },
     last: { type: String, required: [true, 'Last name is required'] },
     phone: { type: String, allowNull: false, required: [true, 'Phone Number is required'] },
-    email: { type: String, allowNull: true, required: [true, 'Email is required'] },
+    email: { type: String, allowNull: true },
     role: { type: String, enum: ['admin', 'user'], default: "user" },
-    otp: { type: Number }
+    phoneOtp: { type: String }
 }, { timestamps: true }));
 
-module.exports = Users;
+module.exports = User;

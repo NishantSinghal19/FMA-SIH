@@ -8,7 +8,7 @@ var db = {};
 const config = require("config");
 
 const mongooseIns = mongoose.connect(config.get("dbconfig").url, { useNewUrlParser: true, useUnifiedTopology: true });
-
+// console.log(mongooseIns);
 fs
 	.readdirSync(__dirname)
 	.filter(file => {

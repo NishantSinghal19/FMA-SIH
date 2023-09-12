@@ -1,6 +1,6 @@
 {
 	"dbconfig": {
-		"url": "mongodb://127.0.0.1:27017/floodApp"
+		"url": "mongodb://127.0.0.1:27017/floodAppDb"
 	},
 	"jwt": {
 		"expiration": 10000,
