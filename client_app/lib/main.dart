@@ -1,123 +1,58 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
-
-void main() {
-  runApp(const MyApp());
+import 'package:flutter/services.dart';
+import 'package:client_app/routes/app_routes.dart';
+import 'package:loggy/loggy.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:client_app/services/localstorage_service.dart';
+// import 'package:client_app/services/token_regeneration_service.dart';
+void main() async {
+  await init();
+  runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+Future<void> init() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
+  await dotenv.load(fileName: ".env");
+  Loggy.initLoggy(logPrinter: const PrettyPrinter());
+}
 
-  // This widget is the root of your application.
+
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+
+class _MyAppState extends State<MyApp> {
+  // late Future<Map<String, dynamic>> _deviceData;
+  var _isLoggedIn = false;
+  @override
+  void initState() {
+    super.initState();
+
+    getIsLoggedIn().then((isLoggedIn) { 
+      _isLoggedIn = isLoggedIn ?? false;
+      // if (_isLoggedIn) {
+      //   tokenExpirationHandler();
+      // }
+    });
+
+    // _deviceData = getDeviceInfo(true);
+  }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a blue toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+        visualDensity: VisualDensity.standard,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  final _mapController = MapController.withUserPosition(
-        trackUserLocation: UserTrackingOption(
-           enableTracking: true,
-           unFollowUser: false,
-        ));
-  @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: OSMFlutter(controller: _mapController, osmOption: OSMOption(
-              userTrackingOption: const UserTrackingOption(
-              enableTracking: true,
-              unFollowUser: false,
-            ),
-            zoomOption: const ZoomOption(
-                  initZoom: 8,
-                  minZoomLevel: 3,
-                  maxZoomLevel: 19,
-                  stepZoom: 1.0,
-            ),
-            userLocationMarker: UserLocationMaker(
-                personMarker: const MarkerIcon(
-                    icon: Icon(
-                        Icons.location_history_rounded,
-                        color: Colors.red,
-                        size: 48,
-                    ),
-                ),
-                directionArrowMarker: const MarkerIcon(
-                    icon: Icon(
-                        Icons.double_arrow,
-                        size: 48,
-                    ),
-                ),
-            ),
-            roadConfiguration: const RoadOption(
-                    roadColor: Colors.yellowAccent,
-            ),
-            markerOption: MarkerOption(
-                defaultMarker: const MarkerIcon(
-                    icon: Icon(
-                      Icons.person_pin_circle,
-                      color: Colors.blue,
-                      size: 56,
-                    ),
-                )
-            ),
-        )),
+      title: 'client_app',
+      debugShowCheckedModeBanner: false,
+      initialRoute: _isLoggedIn ? AppRoutes.minePageContainerScreen : AppRoutes.splashScreen,
+      routes: AppRoutes.routes,
     );
   }
 }
