@@ -28,7 +28,9 @@ def api_predict():
         image_data = request.files['image'].read()
 
         # Make a prediction
-        prediction, probabilities = infer_image(image_path=image_data)
+        prediction, probabilities = infer_image(image_data)
+
+        probabilities = probabilities.tolist()
 
         return jsonify({"prediction": prediction, "probability":probabilities})
 
