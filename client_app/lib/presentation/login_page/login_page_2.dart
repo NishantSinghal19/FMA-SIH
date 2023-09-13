@@ -72,10 +72,11 @@ class LoginScreen2 extends StatelessWidget {
                           margin: getMargin(top: 20, bottom: 5),
                           shape: ButtonShape.RoundedBorder13,
                           onTap: () {
-                            if(phoneController.text.length != 10) {
-                              showToast("Please enter valid phone number");
-                              return;
-                            }
+                            // TO BE UNCOMMENTED AT THE END
+                            // if(phoneController.text.length != 10) {
+                            //   showToast("Please enter valid phone number");
+                            //   return;
+                            // }
                             onTapSendOtp(context, phoneController.text);
                           })
                     ]))));
