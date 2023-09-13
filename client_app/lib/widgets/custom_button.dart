@@ -56,7 +56,7 @@ class CustomButton extends StatelessWidget {
       child: TextButton(
         onPressed: onTap,
         style: _buildTextButtonStyle(),
-        child: _buildButtonWithOrWithoutIcon(),
+        Widget: _buildButtonWithOrWithoutIcon(),
       ),
     );
   }

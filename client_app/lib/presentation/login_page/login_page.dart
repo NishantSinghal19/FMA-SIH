@@ -174,7 +174,7 @@ class _LoginPageState extends State<LoginPage>
                                                   padding: getPadding(
                                                       top: 1),
                                                   child: TextButton(
-                                                      child: Text("Sign Up",
+                                                      Widget: Text("Sign Up",
                                                           overflow: TextOverflow
                                                               .ellipsis,
                                                           textAlign:

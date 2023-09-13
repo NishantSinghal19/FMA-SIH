@@ -9,7 +9,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 var serverUrl = dotenv.env['SERVER_URL'];
 
-Future<SignupResponse> createSignupResponse(
+FutureOr<SignupResponse> createSignupResponse(
     String name,
     String email,
     String otp,

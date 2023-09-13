@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:client_app/routes/app_routes.dart';
@@ -10,7 +12,7 @@ void main() async {
   runApp(MyApp());
 }
 
-Future<void> init() async {
+FutureOr<void> init() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,

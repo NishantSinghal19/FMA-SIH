@@ -10,7 +10,7 @@ import 'package:client_app/services/localstorage_service.dart';
 
 var serverUrl = dotenv.env['SERVER_URL'];
 
-Future<LoginResponse> loginService(
+FutureOr<LoginResponse> loginService(
     String phone, BuildContext? currentContext) async {
   final response = await http.post(
     Uri.parse(serverUrl! + 'users/login'),

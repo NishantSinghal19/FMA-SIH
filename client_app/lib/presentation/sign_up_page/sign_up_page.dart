@@ -397,7 +397,7 @@ class _SignUpPageState extends State<SignUpPage>
                                   left: 0,
                                 ),
                                 child: TextButton(
-                                    child: Text("Sign In",
+                                    Widget: Text("Sign In",
                                         overflow: TextOverflow.ellipsis,
                                         textAlign: TextAlign.left,
                                         style: AppStyle.txtPoppinsSemiBold16),

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:loggy/loggy.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -52,18 +54,18 @@ void setFirebaseToken(String token) async {
   });
 }
 
-Future getUserId() async {
+FutureOr getUserId() async {
   await SharedPreferences.getInstance().then((prefs) {
     return prefs.getString('userId');
   });
 }
 
-Future getJWTtoken() async {
+FutureOr getJWTtoken() async {
   var prefs = await SharedPreferences.getInstance();
   return prefs.getString('JWTtoken');
 }
 
-Future getIsLoggedIn() async {
+FutureOr getIsLoggedIn() async {
   await SharedPreferences.getInstance().then((prefs) {
     return prefs.getBool('isLoggedIn');
   });

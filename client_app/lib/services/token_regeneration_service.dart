@@ -11,7 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 var serverUrl = dotenv.env['SERVER_URL'];
 
-Future<bool> checkTokenExpiration(SharedPreferences prefs) async {
+FutureOr<bool> checkTokenExpiration(SharedPreferences prefs) async {
   final String? tokenIssueTime = prefs.getString('tokenIssueTime') ?? "";
   final int? tokenExpirationTime = prefs.getInt('tokenExpiryTime') != 0
       ? prefs.getInt('tokenExpiryTime')
@@ -27,7 +27,7 @@ Future<bool> checkTokenExpiration(SharedPreferences prefs) async {
   return false;
 }
 
-Future<void> tokenRegeneration(SharedPreferences prefs) async {
+FutureOr<void> tokenRegeneration(SharedPreferences prefs) async {
   final String phone = prefs.getString('phone')!;
   final String password = prefs.getString('password')!;
 
@@ -54,7 +54,7 @@ Future<void> tokenRegeneration(SharedPreferences prefs) async {
   }
 }
 
-Future<void> tokenExpirationHandler() async {
+FutureOr<void> tokenExpirationHandler() async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
 
   if (prefs.getBool('isLoggedIn') != true) {
