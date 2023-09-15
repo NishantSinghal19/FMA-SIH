@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "821717593480",
+    "project_id": "aplavankula",
+    "storage_bucket": "aplavankula.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:821717593480:android:3278991780b6c9b2f79e3d",
+        "android_client_info": {
+          "package_name": "com.example.client_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfYH5cPdNO4VzYBNelesbIbvcY91XxsS4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

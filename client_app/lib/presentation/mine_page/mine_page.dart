@@ -15,24 +15,17 @@ class MinePage extends StatelessWidget {
             appBar: CustomAppBar(
                 height: getVerticalSize(55),
                 title: Container(
-                    width: getHorizontalSize(111),
+                    width: getHorizontalSize(151),
                     margin: getMargin(left: 24),
                     child: RichText(
                         text: TextSpan(children: [
                           TextSpan(
-                              text: "Hello Alex\n",
+                              text: "APLAVANKULA",
                               style: TextStyle(
                                   color: ColorConstant.black900,
                                   fontSize: getFontSize(20),
                                   fontFamily: 'Poppins',
-                                  fontWeight: FontWeight.w600)),
-                          TextSpan(
-                              text: "Welcome back!",
-                              style: TextStyle(
-                                  color: ColorConstant.gray500,
-                                  fontSize: getFontSize(14),
-                                  fontFamily: 'Poppins',
-                                  fontWeight: FontWeight.w500))
+                                   fontWeight: FontWeight.w600))
                         ]),
                         textAlign: TextAlign.left)),
                 actions: [
