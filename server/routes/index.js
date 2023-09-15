@@ -12,6 +12,8 @@ const {
   handleAdmin,
   createNewUser
 } = require("../controllers/auth.controller.js");
+const RegisteredDevicesController = require("../controllers/registered_devices.controller.js");
+
 router.get('/', function (req, res, next) {
   res.render('index', { title: 'Express' });
 });
@@ -26,7 +28,7 @@ router.get("/me", checkAuth, fetchCurrentUser);
 router.get("/admin", checkAuth, checkAdmin, handleAdmin);
 
 
-
+router.post('/register_device', RegisteredDevicesController.create);
 
 
 module.exports = router;
