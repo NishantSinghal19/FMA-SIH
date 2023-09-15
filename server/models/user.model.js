@@ -7,7 +7,8 @@ const User = mongoose.model('User', new mongoose.Schema({
     phone: { type: String, allowNull: false, required: [true, 'Phone Number is required'] },
     email: { type: String, allowNull: true },
     role: { type: String, enum: ['admin', 'user'], default: "user" },
-    phoneOtp: { type: String }
+    phoneOtp: { type: String },
+    status:{type:String,enum:['active','inActive'],default:"inActive"}
 }, { timestamps: true }));
 
 module.exports = User;

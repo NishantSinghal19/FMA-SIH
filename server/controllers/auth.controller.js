@@ -25,29 +25,38 @@ exports.createNewUser = async (req, res, next) => {
     // check duplicate phone Number
     const phoneExist = await User.findOne({ phone });
 
-    if (phoneExist) {
+    if (phoneExist && phoneExist.status != "inActive") {
       // next({ status: 400, message: PHONE_ALREADY_EXISTS_ERR });
-      return ReE(res,PHONE_ALREADY_EXISTS_ERR);
+      return ReE(res, PHONE_ALREADY_EXISTS_ERR);
+    }
+    let user,otp;
+    if (phoneExist && phoneExist.status == "inActive") {
+      otp = generateOTP(6);
+      phoneExist.phoneOtp = otp;
+      user=await phoneExist.save();
+
+    }
+    else {
+      // create new user
+      const createUser = new User({
+        phone,
+        first,
+        last,
+        role: phone === config.get("admin_phone") ? "admin" : "user"
+      });
+
+      // save user
+
+      user = await createUser.save();
+
+      // generate otp
+      otp = generateOTP(6);
+      // save otp to user collection
+      user.phoneOtp = otp;
+      await user.save();
     }
 
 
-    // create new user
-    const createUser = new User({
-      phone,
-      first,
-      last,
-      role: phone === config.get("admin_phone") ? "admin" : "user"
-    });
-
-    // save user
-
-    const user = await createUser.save();
-
-    // generate otp
-    const otp = generateOTP(6);
-    // save otp to user collection
-    user.phoneOtp = otp;
-    await user.save();
     // console.log("user is: ",user);
     // send otp to phone number
     await fast2sms(
@@ -59,7 +68,7 @@ exports.createNewUser = async (req, res, next) => {
     );
     res.status(200).json({
       type: "success",
-      message: "Account created OTP sended to mobile number",
+      message: "Account created OTP sent to mobile number",
       data: {
         userId: user._id,
       },
