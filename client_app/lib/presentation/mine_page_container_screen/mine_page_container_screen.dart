@@ -1,3 +1,4 @@
+import 'package:client_app/presentation/map_location_bottomsheet/map_2.dart';
 import 'package:flutter/material.dart';
 import 'package:client_app/core/app_export.dart';
 import 'package:client_app/presentation/mine_page/mine_page.dart';
@@ -65,7 +66,7 @@ class _MinePageContainerScreenState extends State<MinePageContainerScreen> {
       case BottomBarEnum.Checkmarkgray500:
         return AppRoutes.statisticsTabContainerPage;
       case BottomBarEnum.Computergray500:
-        return AppRoutes.nationalBankPage;
+        return AppRoutes.mapLocationBottomSheet;
       case BottomBarEnum.Searchgray5002:
         return isLoggedIn ? AppRoutes.profileScreen : AppRoutes.loginPage;
       default:
@@ -80,8 +81,8 @@ class _MinePageContainerScreenState extends State<MinePageContainerScreen> {
         return MinePage();
       case AppRoutes.statisticsTabContainerPage:
         return StatisticsTabContainerPage();
-      case AppRoutes.nationalBankPage:
-        return NationalBankPage();
+      case AppRoutes.mapLocationBottomSheet:
+        return MapScreen();
       default:
         return DefaultWidget();
     }
