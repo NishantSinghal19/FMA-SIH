@@ -57,7 +57,7 @@ class _SplashScreenState extends State<SplashScreen> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              "APLAVYAKULA",
+                              "APLAVANKULA",
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.left,
                               style: AppStyle.txtProximaNovaABold28.copyWith(
