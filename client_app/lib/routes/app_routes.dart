@@ -1,5 +1,8 @@
+// ignore_for_file: unused_import
+
 import 'package:client_app/presentation/login_page/login_page.dart';
 import 'package:client_app/presentation/login_page/login_page_2.dart';
+import 'package:client_app/presentation/map_location_bottomsheet/map_2.dart';
 import 'package:client_app/presentation/sign_up_page/sign_up_page.dart';
 import 'package:flutter/material.dart';
 import 'package:client_app/presentation/splash_screen/splash_screen.dart';
@@ -29,6 +32,7 @@ class AppRoutes {
       '/login_page_tab_container_screen';
 
   static const String signUpPage = '/sign_up_page';
+  
 
   static const String forgotPasswordScreen = '/forgot_password_screen';
 
@@ -69,6 +73,8 @@ class AppRoutes {
 
   static const String appNavigationScreen = '/app_navigation_screen';
 
+  static const String mapLocationBottomSheet = '/map_location_bottom_sheet';
+
   static Map<String, WidgetBuilder> routes = {
     splashScreen: (context) => SplashScreen(),
     loginPageTabContainerScreen: (context) => LoginPageTabContainerScreen(),
@@ -89,5 +95,6 @@ class AppRoutes {
     appNavigationScreen: (context) => AppNavigationScreen(),
     loginPage: (context) => LoginScreen2(),
     signUpPage: (context) => SignUpPage(),
+    mapLocationBottomSheet: (context) => MapScreen(),
   };
 }
