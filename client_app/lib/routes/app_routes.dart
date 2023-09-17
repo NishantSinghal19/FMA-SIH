@@ -3,6 +3,7 @@
 import 'package:client_app/presentation/login_page/login_page.dart';
 import 'package:client_app/presentation/login_page/login_page_2.dart';
 import 'package:client_app/presentation/map_location_bottomsheet/map_2.dart';
+import 'package:client_app/presentation/mine_page/mine_page.dart';
 import 'package:client_app/presentation/sign_up_page/sign_up_page.dart';
 import 'package:flutter/material.dart';
 import 'package:client_app/presentation/splash_screen/splash_screen.dart';
@@ -74,6 +75,12 @@ class AppRoutes {
   static const String appNavigationScreen = '/app_navigation_screen';
 
   static const String mapLocationBottomSheet = '/map_location_bottom_sheet';
+  
+  static const String drainagePage = '/drainafe_page';
+  
+  static const String communtiyPage= '/community_page';
+
+  
 
   static Map<String, WidgetBuilder> routes = {
     splashScreen: (context) => SplashScreen(),
@@ -96,5 +103,7 @@ class AppRoutes {
     loginPage: (context) => LoginScreen2(),
     signUpPage: (context) => SignUpPage(),
     mapLocationBottomSheet: (context) => MapScreen(),
+    drainagePage: (context) => MinePage(),
+    communtiyPage: (context) => TransferAmountScreen(),
   };
 }

@@ -62,11 +62,11 @@ class _MinePageContainerScreenState extends State<MinePageContainerScreen> {
   String getCurrentRoute(BottomBarEnum type, bool isLoggedIn) {
     switch (type) {
       case BottomBarEnum.Lock:
-        return AppRoutes.minePage;
-      case BottomBarEnum.Checkmarkgray500:
-        return AppRoutes.statisticsTabContainerPage;
-      case BottomBarEnum.Computergray500:
         return AppRoutes.mapLocationBottomSheet;
+      case BottomBarEnum.Checkmarkgray500:
+        return AppRoutes.drainagePage;
+      case BottomBarEnum.Computergray500:
+        return AppRoutes.communtiyPage;
       case BottomBarEnum.Searchgray5002:
         return isLoggedIn ? AppRoutes.profileScreen : AppRoutes.loginPage;
       default:
@@ -77,9 +77,9 @@ class _MinePageContainerScreenState extends State<MinePageContainerScreen> {
   ///Handling page based on route
   Widget getCurrentPage(String currentRoute) {
     switch (currentRoute) {
-      case AppRoutes.minePage:
+      case AppRoutes.drainagePage:
         return MinePage();
-      case AppRoutes.statisticsTabContainerPage:
+      case AppRoutes.communtiyPage:
         return StatisticsTabContainerPage();
       case AppRoutes.mapLocationBottomSheet:
         return MapScreen();

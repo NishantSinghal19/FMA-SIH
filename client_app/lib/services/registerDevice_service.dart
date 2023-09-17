@@ -12,7 +12,7 @@ var serverUrl = dotenv.env['SERVER_URL'];
 
 Future<void> registerDeviceResponse(Object? body) async {
   final response = await http.post(
-    Uri.parse(serverUrl! + 'register_device'),
+    Uri.parse(serverUrl! + 'api/register_device'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -25,7 +25,7 @@ Future<void> registerDeviceResponse(Object? body) async {
       return;
     } else {
       SharedPreferences.getInstance().then((prefs) {
-        prefs.setString('deviceId', jsonDecode(response.body)['_id']);
+        prefs.setString('deviceId', jsonDecode(response.body)['device']['_id']);
         prefs.setBool('isRegistered', true);
       });
     }
