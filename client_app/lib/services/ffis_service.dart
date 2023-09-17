@@ -49,11 +49,14 @@ Future<dynamic> getPresentWaterLevelData(String stationCode) async {
     'ffs.india-water.gov.in',
     '/iam/api/new-entry-data/specification/sorted-page',
     {
-      'sort-criteria': Uri.encodeComponent('{"sortOrderDtos":[{"sortDirection":"DESC","field":"id.dataTime"}]}'),
-      'page-number': '0',
-      'page-size': '2',
-      'specification': Uri.encodeComponent('{"where":{"where":{"expression":{"valueIsRelationField":false,"fieldName":"id.stationCode","operator":"eq","value":${stationCode}}},"and":{"expression":{"valueIsRelationField":false,"fieldName":"id.datatypeCode","operator":"eq","value":"HHS"}}},"and":{"expression":{"valueIsRelationField":false,"fieldName":"dataValue","operator":"null","value":"false"}}}'),
+      'specification': Uri.encodeComponent('{"where":{"where":{"expression":{"valueIsRelationField":false,"fieldName":"id.stationCode","operator":"eq","value":${stationCode}}} }}'),
     },
+    // {
+    //   'sort-criteria': Uri.encodeComponent('{"sortOrderDtos":[{"sortDirection":"DESC","field":"id.dataTime"}]}'),
+    //   'page-number': '0',
+    //   'page-size': '2',
+    //   'specification': Uri.encodeComponent('{"where":{"where":{"expression":{"valueIsRelationField":false,"fieldName":"id.stationCode","operator":"eq","value":${stationCode}}},"and":{"expression":{"valueIsRelationField":false,"fieldName":"id.datatypeCode","operator":"eq","value":"HHS"}}},"and":{"expression":{"valueIsRelationField":false,"fieldName":"dataValue","operator":"null","value":"false"}}}'),
+    // },
   );
 
   final response = await http.get(url, headers: {
