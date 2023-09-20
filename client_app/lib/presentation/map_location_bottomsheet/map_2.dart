@@ -31,23 +31,23 @@ class _MapState extends State<MapScreen> {
 
     _stationDataList = getStationListAboveWarning();
 
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      mapController.listenerMapSingleTapping.addListener(() async {
-        var position = mapController.listenerMapSingleTapping.value;
-        if (position != null) {
-          await mapController.addMarker(position,
-              markerIcon: const MarkerIcon(
-                icon: Icon(
-                  Icons.pin_drop,
-                  color: Colors.blue,
-                  size: 48,
-                ),
-              ));
-          var key = '${position.latitude}_${position.longitude}';
-          markerMap[key] = markerMap.length.toString();
-        }
-      });
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    //   mapController.listenerMapSingleTapping.addListener(() async {
+    //     var position = mapController.listenerMapSingleTapping.value;
+    //     if (position != null) {
+    //       await mapController.addMarker(position,
+    //           markerIcon: const MarkerIcon(
+    //             icon: Icon(
+    //               Icons.pin_drop,
+    //               color: Colors.blue,
+    //               size: 48,
+    //             ),
+    //           ));
+    //       var key = '${position.latitude}_${position.longitude}';
+    //       markerMap[key] = markerMap.length.toString();
+    //     }
+    //   });
+    // });
   }
 
   @override
@@ -139,14 +139,14 @@ class _MapState extends State<MapScreen> {
                     roadConfiguration: RoadOption(
                       roadColor: Colors.yellowAccent,
                     ),
-                    // markerOption: MarkerOption(
-                    //     defaultMarker: MarkerIcon(
-                    //   icon: Icon(
-                    //     Icons.person_pin_circle,
-                    //     color: Colors.blue,
-                    //     size: 25,
-                    //   ),
-                    // )),
+                    markerOption: MarkerOption(
+                        defaultMarker: MarkerIcon(
+                      icon: Icon(
+                        Icons.person_pin_circle,
+                        color: Colors.blue,
+                        size: 25,
+                      ),
+                    )),
                   ),
                   onMapIsReady: (isReady) async {
                     if (isReady) {
@@ -167,8 +167,7 @@ class _MapState extends State<MapScreen> {
                         context: context,
                         builder: (context) {
                           return FutureBuilder(
-                              future: Future.wait(
-                                  [_stationData, _presentWaterLevelData]),
+                              future: Future.wait([_stationData]),
                               builder: (BuildContext context,
                                   AsyncSnapshot<dynamic> snapshot) {
                                 if (snapshot.hasData) {
@@ -185,6 +184,8 @@ class _MapState extends State<MapScreen> {
                                           Expanded(
                                             child: Column(
                                               mainAxisSize: MainAxisSize.min,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
                                                 Text(
                                                   'Station Name: ' +
@@ -198,104 +199,189 @@ class _MapState extends State<MapScreen> {
                                                 const Divider(
                                                   thickness: 1,
                                                 ),
-                                                Text(
-                                                  'Severity Status: ' +
-                                                      markerMap[key]!
-                                                          .flood_status,
-                                                  style: TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.red,
-                                                  ),
+                                                Table(
+                                                  children: [
+                                                    TableRow(children: [
+                                                      Text(
+                                                        'Severity Status:',
+                                                        style: TextStyle(
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Color.fromARGB(
+                                                              255, 50, 50, 50),
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        markerMap[key]!
+                                                            .flood_status,
+                                                        style: TextStyle(
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.red,
+                                                        ),
+                                                      ),
+                                                    ]),
+                                                    TableRow(children: [
+                                                      Text(
+                                                        'Flood Trend:',
+                                                        style: TextStyle(
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Color.fromARGB(
+                                                              255, 50, 50, 50),
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        markerMap[key]!.trend,
+                                                        style: TextStyle(
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.red,
+                                                        ),
+                                                      ),
+                                                    ]),
+                                                    TableRow(children: [
+                                                      Text(
+                                                        'Highest Flood Level (HFL):',
+                                                        style: TextStyle(
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Color.fromARGB(
+                                                              255, 50, 50, 50),
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        markerMap[key]!
+                                                            .value
+                                                            .toString(),
+                                                        style: TextStyle(
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.red,
+                                                        ),
+                                                      ),
+                                                    ]),
+                                                    TableRow(children: [
+                                                      Text(
+                                                        'HFL Attained Date:',
+                                                        style: TextStyle(
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Color.fromARGB(
+                                                              255, 50, 50, 50),
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        markerMap[key]!.savedAt,
+                                                        style: TextStyle(
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.red,
+                                                        ),
+                                                      ),
+                                                    ]),
+                                                    TableRow(children: [
+                                                      Text(
+                                                        'District:',
+                                                        style: TextStyle(
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Color.fromARGB(
+                                                              255, 50, 50, 50),
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        snapshot.data[0]
+                                                            ['district'],
+                                                        style: TextStyle(
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.red,
+                                                        ),
+                                                      ),
+                                                    ]),
+                                                    TableRow(children: [
+                                                      Text(
+                                                        'Divisional Office:',
+                                                        style: TextStyle(
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Color.fromARGB(
+                                                              255, 50, 50, 50),
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        snapshot.data[0][
+                                                            'divisionalOffice'],
+                                                        style: TextStyle(
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.red,
+                                                        ),
+                                                      ),
+                                                    ]),
+                                                    TableRow(children: [
+                                                      Text(
+                                                        'River:',
+                                                        style: TextStyle(
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Color.fromARGB(
+                                                              255, 50, 50, 50),
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        snapshot.data[0]
+                                                            ['river'],
+                                                        style: TextStyle(
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.red,
+                                                        ),
+                                                      ),
+                                                    ]),
+                                                    TableRow(children: [
+                                                      Text(
+                                                        'Basin:',
+                                                        style: TextStyle(
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Color.fromARGB(
+                                                              255, 50, 50, 50),
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        snapshot.data[0]
+                                                            ['basin'],
+                                                        style: TextStyle(
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.red,
+                                                        ),
+                                                      ),
+                                                    ]),
+                                                  ],
                                                 ),
-                                                Text(
-                                                  'Flood Trend: ' +
-                                                      markerMap[key]!.trend,
-                                                  style: TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.red,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  'Highest Flood Level (HFL): ' +
-                                                      markerMap[key]!
-                                                          .value
-                                                          .toString(),
-                                                  style: TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.red,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  'HFL Attained Date: ' +
-                                                      markerMap[key]!.savedAt,
-                                                  style: TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.red,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  'Last Noted Time: ' +
-                                                      snapshot.data[1]
-                                                          .lastNotedTime,
-                                                  style: TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.red,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  'Present Water Level: ' +
-                                                      snapshot.data[1]
-                                                          .presentLevel
-                                                          .toString(),
-                                                  style: TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.red,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  'District: ' +
-                                                      snapshot.data[0]
-                                                          .district,
-                                                  style: TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.red,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  'Divisional Office: ' +
-                                                      snapshot.data[0]
-                                                          .divisionalOffice,
-                                                  style: TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.red,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  'River: ' +
-                                                      snapshot.data[0].river,
-                                                  style: TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.red,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  'Basin: ' +
-                                                      snapshot.data[0].basin,
-                                                  style: TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.red,
-                                                  ),
-                                                ),
+                                                Padding(
+                                                    padding:
+                                                        EdgeInsets.fromLTRB(
+                                                            0, 15, 0, 15)),
                                               ],
                                             ),
                                           ),

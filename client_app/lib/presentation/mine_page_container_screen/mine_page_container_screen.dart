@@ -37,7 +37,7 @@ class _MinePageContainerScreenState extends State<MinePageContainerScreen> {
             backgroundColor: ColorConstant.whiteA700,
             body: Navigator(
                 key: navigatorKey,
-                initialRoute: AppRoutes.minePage,
+                initialRoute: AppRoutes.mapLocationBottomSheet,
                 onGenerateRoute: (routeSetting) => PageRouteBuilder(
                     pageBuilder: (ctx, ani, ani1) =>
                         getCurrentPage(routeSetting.name!),

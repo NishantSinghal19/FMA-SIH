@@ -10,7 +10,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 var serverUrl = dotenv.env['SERVER_URL'];
 
 Future<Iterable<StationData>> getStationListAboveWarning() async {
-  final response = await http.get(Uri.parse(serverUrl! + 'api/get_station_above_warning'));
+  final response =
+      await http.get(Uri.parse(serverUrl! + 'api/get_station_above_warning'));
 
   if (response.statusCode == 200) {
     var list = jsonDecode(response.body)['data'] as List;
@@ -23,19 +24,18 @@ Future<Iterable<StationData>> getStationListAboveWarning() async {
 }
 
 Future<dynamic> getStationData(String id) async {
-  final response = await http.get(Uri.parse('https://ffs.india-water.gov.in/iam/api/layer-station/' + id), headers: {
-    'Class-Name' : 'ForecastDetailLayerStationDto'
-  });
+  final response = await http.get(
+      Uri.parse('https://ffs.india-water.gov.in/iam/api/layer-station/' + id),
+      headers: {'Class-Name': 'ForecastDetailLayerStationDto'});
 
   if (response.body.isNotEmpty) {
     var resp = jsonDecode(response.body);
     var obj = {
-      "district" : resp.districtId.name,
-      "divisionalOffice": resp.divisionalOffice.name,
-      "river": resp.river.name,
-      "basin": resp.basin.name,
+      "district": resp['districtId']['name'],
+      "divisionalOffice": resp['divisionalOffice']['name'],
+      "river": resp['river']['name'],
+      "basin": resp['basin']['name'],
     };
-
     return obj;
   } else if (response.statusCode == 422) {
     throw ('Error fetching stations');
@@ -45,28 +45,15 @@ Future<dynamic> getStationData(String id) async {
 }
 
 Future<dynamic> getPresentWaterLevelData(String stationCode) async {
-  final url = Uri.https(
-    'ffs.india-water.gov.in',
-    '/iam/api/new-entry-data/specification/sorted-page',
-    {
-      'specification': Uri.encodeComponent('{"where":{"where":{"expression":{"valueIsRelationField":false,"fieldName":"id.stationCode","operator":"eq","value":${stationCode}}} }}'),
-    },
-    // {
-    //   'sort-criteria': Uri.encodeComponent('{"sortOrderDtos":[{"sortDirection":"DESC","field":"id.dataTime"}]}'),
-    //   'page-number': '0',
-    //   'page-size': '2',
-    //   'specification': Uri.encodeComponent('{"where":{"where":{"expression":{"valueIsRelationField":false,"fieldName":"id.stationCode","operator":"eq","value":${stationCode}}},"and":{"expression":{"valueIsRelationField":false,"fieldName":"id.datatypeCode","operator":"eq","value":"HHS"}}},"and":{"expression":{"valueIsRelationField":false,"fieldName":"dataValue","operator":"null","value":"false"}}}'),
-    // },
-  );
-
-  final response = await http.get(url, headers: {
-    "Class-Name": 'NewEntryDataDto'
-  });
+  final response =
+      await http.post(Uri.parse(serverUrl! + 'api/getPresentWaterLevelData'), body: {
+        "id": stationCode
+      });
 
   if (response.body.isNotEmpty) {
-    var resp = jsonDecode(response.body)[0];
+    var resp = jsonDecode(response.body);
     var obj = {
-      "presentLevel" : resp.dataValue,
+      "presentLevel": resp.dataValue,
       "lastNotedTime": resp.id.dataTime,
       "stationCode": resp.id.stationCode,
     };
@@ -78,7 +65,3 @@ Future<dynamic> getPresentWaterLevelData(String stationCode) async {
     throw ('Network Error');
   }
 }
-
-
-
-

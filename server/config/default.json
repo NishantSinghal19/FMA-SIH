@@ -45,6 +45,7 @@
 		"authToken": "8e380fca63a9f64e6669f9610b6e3cf8"
 	},
 	"ffis-config": {
-		"stationLevelAboveWarningFetchUrl": "https://ffs.india-water.gov.in/ffm/api/station-water-level-above-warning/"
+		"stationLevelAboveWarningFetchUrl": "https://ffs.india-water.gov.in/ffm/api/station-water-level-above-warning/",
+		"stationDataFetchUrl": "https://ffs.india-water.gov.in/iam/api/layer-station/"
 	}
 }
