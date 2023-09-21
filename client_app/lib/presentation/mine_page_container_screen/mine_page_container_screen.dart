@@ -1,3 +1,4 @@
+import 'package:client_app/presentation/flood_sos_screen/flood_sos_screen.dart';
 import 'package:client_app/presentation/map_location_bottomsheet/map_2.dart';
 import 'package:flutter/material.dart';
 import 'package:client_app/core/app_export.dart';
@@ -47,15 +48,16 @@ class _MinePageContainerScreenState extends State<MinePageContainerScreen> {
               Navigator.pushNamed(
                   navigatorKey.currentContext!, getCurrentRoute(type, _isLoggedIn));
             }),
-            floatingActionButton: CustomFloatingButton(
-                height: 50,
-                width: 50,
-                child: CustomImageView(
-                    svgPath: ImageConstant.imgQrcodeWhiteA700,
-                    height: getVerticalSize(25.0),
-                    width: getHorizontalSize(25.0))),
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.centerDocked));
+            // floatingActionButton: CustomFloatingButton(
+            //     height: 50,
+            //     width: 50,
+            //     child: CustomImageView(
+            //         svgPath: ImageConstant.imgQrcodeWhiteA700,
+            //         height: getVerticalSize(25.0),
+            //         width: getHorizontalSize(25.0))),
+            // floatingActionButtonLocation:
+            //     FloatingActionButtonLocation.centerDocked
+                ));
   }
 
   ///Handling route based on bottom click actions
@@ -83,6 +85,8 @@ class _MinePageContainerScreenState extends State<MinePageContainerScreen> {
         return StatisticsTabContainerPage();
       case AppRoutes.mapLocationBottomSheet:
         return MapScreen();
+      case AppRoutes.floodSosScreen:
+        return FloodSosScreen();
       default:
         return DefaultWidget();
     }

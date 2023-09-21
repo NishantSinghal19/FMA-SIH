@@ -259,4 +259,8 @@ class ImageConstant {
   static String imgFrame243 = 'assets/images/img_frame243.svg';
 
   static String imageNotFound = 'assets/images/image_not_found.png';
+
+  static String sosCall = 'assets/images/sos-call.png';
+  
+  static String closeIcon = 'assets/images/close_icon.png';
 }

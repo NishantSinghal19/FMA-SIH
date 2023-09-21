@@ -1,5 +1,6 @@
 // ignore_for_file: unused_import
 
+import 'package:client_app/presentation/flood_sos_screen/flood_sos_screen.dart';
 import 'package:client_app/presentation/login_page/login_page.dart';
 import 'package:client_app/presentation/login_page/login_page_2.dart';
 import 'package:client_app/presentation/map_location_bottomsheet/map_2.dart';
@@ -80,6 +81,8 @@ class AppRoutes {
   
   static const String communtiyPage= '/community_page';
 
+  static const String floodSosScreen = '/flood_sos_screen';
+
   
 
   static Map<String, WidgetBuilder> routes = {
@@ -105,5 +108,6 @@ class AppRoutes {
     mapLocationBottomSheet: (context) => MapScreen(),
     drainagePage: (context) => MinePage(),
     communtiyPage: (context) => TransferAmountScreen(),
+    floodSosScreen: (context) => FloodSosScreen(),
   };
 }
