@@ -39,14 +39,6 @@ class _MapState extends State<MapScreen> {
     });
   }
 
-  void onPressedFunction1() {
-    print('Button 1 pressed');
-  }
-
-  void onPressedFunction2() {
-    print('Button 2 pressed');
-  }
-
   void handleTapOutside() {
     if (isButtonsVisible) {
       setState(() {
@@ -90,6 +82,7 @@ class _MapState extends State<MapScreen> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final buttonWidth = 120.0;
+    bool isLoading = true;
 
     return FutureBuilder(
         future: _stationDataList,
@@ -110,6 +103,7 @@ class _MapState extends State<MapScreen> {
                     ),
                   ));
             }
+            isLoading = false;
           }
           return SafeArea(
               minimum: EdgeInsets.fromLTRB(0, 10, 0, 0),
@@ -530,7 +524,9 @@ class _MapState extends State<MapScreen> {
                                     minimumSize: Size(buttonWidth, 60),
                                     backgroundColor: ColorConstant.teal300,
                                     elevation: 5),
-                                onPressed: onPressedFunction1,
+                                onPressed: () {
+                                  onPressedForYourself(context);
+                                },
                                 child: Text('For Yourself',
                                     style: TextStyle(fontSize: 16)),
                               ),
@@ -545,7 +541,9 @@ class _MapState extends State<MapScreen> {
                                     minimumSize: Size(buttonWidth, 60),
                                     backgroundColor: ColorConstant.teal300,
                                     elevation: 5),
-                                onPressed: onPressedFunction2,
+                                onPressed: () {
+                                  onPressedForKin(context);
+                                },
                                 child: Text('For kin',
                                     style: TextStyle(fontSize: 16)),
                               ),
@@ -555,18 +553,32 @@ class _MapState extends State<MapScreen> {
                       ),
                     ],
                   ),
-                  floatingActionButton: CustomFloatingButton(
-                      height: 50,
-                      width: 50,
-                      child: CustomImageView(
-                          imagePath: !isButtonsVisible ? ImageConstant.sosCall : ImageConstant.closeIcon,
-                          height: getVerticalSize(32.0),
-                          width: getHorizontalSize(32.0)),
-                      onTap: () {
-                        toggleBlur();
-                      }),
+                  floatingActionButton: !isLoading
+                      ? CustomFloatingButton(
+                          height: 50,
+                          width: 50,
+                          child: CustomImageView(
+                              imagePath: !isButtonsVisible
+                                  ? ImageConstant.sosCall
+                                  : ImageConstant.closeIcon,
+                              height: getVerticalSize(32.0),
+                              width: getHorizontalSize(32.0)),
+                          onTap: () {
+                            toggleBlur();
+                          })
+                      : Container(),
                   floatingActionButtonLocation:
                       FloatingActionButtonLocation.centerFloat));
         });
+  }
+
+  onPressedForYourself(BuildContext context) async {
+    Navigator.pushNamed(context, AppRoutes.floodSosScreen,
+        arguments: {'isForYourself': true});
+  }
+
+  onPressedForKin(BuildContext context) async {
+    Navigator.pushNamed(context, AppRoutes.floodSosScreen,
+        arguments: {'isForYourself': false});
   }
 }

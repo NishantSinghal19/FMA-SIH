@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:client_app/widgets/app_bar/custom_app_bar.dart';
 import 'package:client_app/widgets/custom_icon_button.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +9,7 @@ import 'package:client_app/widgets/custom_drop_down.dart';
 import 'package:client_app/widgets/custom_text_form_field.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:client_app/services/signup_service.dart';
+import 'package:image_picker/image_picker.dart';
 
 // ignore_for_file: must_be_immutable
 class FloodSosScreen extends StatefulWidget {
@@ -14,26 +17,27 @@ class FloodSosScreen extends StatefulWidget {
   _FloodSosScreenState createState() => _FloodSosScreenState();
 }
 
-class _FloodSosScreenState extends State<FloodSosScreen>
-    with AutomaticKeepAliveClientMixin<FloodSosScreen> {
-  TextEditingController languageController = TextEditingController();
+class _FloodSosScreenState extends State<FloodSosScreen> {
+  TextEditingController nameController = TextEditingController();
 
-  TextEditingController emailOneController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
 
-  TextEditingController frame212Controller = TextEditingController();
+  XFile? image;
 
-  TextEditingController frame213Controller = TextEditingController();
+  final ImagePicker picker = ImagePicker();
 
-  TextEditingController frame214Controller = TextEditingController();
+  Future getImage(ImageSource media) async {
+    var img = await picker.pickImage(source: media);
 
-  var passwordVisible = false, confirmPasswordVisible = false;
+    setState(() {
+      image = img;
+    });
+  }
 
-  var signupModel = {
+  var sosModel = {
     "name": "",
-    "email": "",
     "phone": "",
     "password": "",
-    "confirmPassword": "",
   };
 
   showToast(String message) {
@@ -49,10 +53,69 @@ class _FloodSosScreenState extends State<FloodSosScreen>
         );
   }
 
-  @override
-  bool get wantKeepAlive => true;
+  void imageUploadAlert() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            title: Text('Please choose media to select'),
+            content: Container(
+              height: MediaQuery.of(context).size.height / 6,
+              child: Column(
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      getImage(ImageSource.gallery);
+                    },
+                    child: Row(
+                      children: [
+                        Icon(Icons.image),
+                        Text('From Gallery'),
+                      ],
+                    ),
+                    style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        minimumSize: Size(120, 60),
+                        backgroundColor: ColorConstant.indigoA100,
+                        elevation: 3),
+                  ),
+                  ElevatedButton(
+                    //if user click this button. user can upload image from camera
+                    onPressed: () {
+                      Navigator.pop(context);
+                      getImage(ImageSource.camera);
+                    },
+                    child: Row(
+                      children: [
+                        Icon(Icons.camera),
+                        Text('From Camera'),
+                      ],
+                    ),
+                    style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        minimumSize: Size(120, 60),
+                        backgroundColor: ColorConstant.indigoA100,
+                        elevation: 3),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as Map;
+    bool isForYourself = args["isForYourself"];
+
     return SafeArea(
       child: Scaffold(
         // backgroundColor: Colors.transparent,
@@ -83,376 +146,140 @@ class _FloodSosScreenState extends State<FloodSosScreen>
                           child: CustomImageView(
                               svgPath: ImageConstant.imgArrowleftBlack900)),
                       Padding(padding: getPadding(bottom: 40)),
-                      Text(
-                        "Name",
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.left,
-                        style: AppStyle.txtPoppinsMedium16,
-                      ),
-                      CustomTextFormField(
-                        focusNode: FocusNode(),
-                        controller: languageController,
-                        hintText: "Dmitry Ponomarev ",
-                        margin: getMargin(
-                          left: 1,
-                        ),
-                        suffix: Container(
-                          margin:
-                              getMargin(left: 30, top: 4, bottom: 4, right: 13),
-                          child: CustomImageView(
-                            svgPath: ImageConstant.imgCheckmarkIndigoA100,
-                          ),
-                        ),
-                        suffixConstraints: BoxConstraints(
-                          maxHeight: getVerticalSize(
-                            27,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: getPadding(
-                          top: 22,
-                        ),
-                        child: Text(
-                          "Email",
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.left,
-                          style: AppStyle.txtPoppinsMedium16,
-                        ),
-                      ),
-                      CustomTextFormField(
-                        focusNode: FocusNode(),
-                        controller: emailOneController,
-                        hintText: "xyz@gmail.com",
-                        margin: getMargin(
-                          left: 1,
-                          top: 1,
-                        ),
-                        textInputType: TextInputType.emailAddress,
-                      ),
-                      Container(
-                        height: getVerticalSize(
-                          51,
-                        ),
-                        width: getHorizontalSize(
-                          327,
-                        ),
-                        margin: getMargin(
-                          top: 24,
-                        ),
-                        child: Stack(
-                          alignment: Alignment.bottomCenter,
-                          children: [
-                            Align(
-                              alignment: Alignment.topLeft,
-                              child: Text(
-                                "Phone",
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.left,
-                                style: AppStyle.txtPoppinsMedium16,
-                              ),
-                            ),
-                            CustomTextFormField(
-                              width: getHorizontalSize(
-                                326,
-                              ),
+                      !isForYourself
+                          ? Text(
+                              "Name of the person in need",
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.left,
+                              style: AppStyle.txtPoppinsMedium16,
+                            )
+                          : Container(),
+                      !isForYourself
+                          ? CustomTextFormField(
                               focusNode: FocusNode(),
-                              controller: frame212Controller,
-                              hintText: "+1-123-456-7890",
-                              alignment: Alignment.bottomCenter,
-                            ),
-                          ],
-                        ),
-                      ),
+                              controller: nameController,
+                              hintText: "Dmitry Ponomarev",
+                              margin: getMargin(
+                                left: 1,
+                              ),
+                              suffix: Container(
+                                margin: getMargin(
+                                    left: 30, top: 4, bottom: 4, right: 13),
+                                child: CustomImageView(
+                                  svgPath: ImageConstant.imgCheckmarkIndigoA100,
+                                ),
+                              ),
+                              suffixConstraints: BoxConstraints(
+                                maxHeight: getVerticalSize(
+                                  27,
+                                ),
+                              ),
+                            )
+                          : Container(),
+                      !isForYourself
+                          ? Container(
+                              height: getVerticalSize(
+                                51,
+                              ),
+                              width: getHorizontalSize(
+                                327,
+                              ),
+                              margin: getMargin(
+                                top: 24,
+                              ),
+                              child: Stack(
+                                alignment: Alignment.bottomCenter,
+                                children: [
+                                  Align(
+                                    alignment: Alignment.topLeft,
+                                    child: Text(
+                                      "Phone Number of the person in need",
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.left,
+                                      style: AppStyle.txtPoppinsMedium16,
+                                    ),
+                                  ),
+                                  CustomTextFormField(
+                                    width: getHorizontalSize(
+                                      326,
+                                    ),
+                                    focusNode: FocusNode(),
+                                    controller: phoneController,
+                                    hintText: "+91-9876543210",
+                                    alignment: Alignment.bottomCenter,
+                                  ),
+                                ],
+                              ),
+                            )
+                          : Container(),
                       Padding(
                         padding: getPadding(
                           top: 24,
                         ),
                         child: Text(
-                          "Password",
+                          "Upload Flood Images",
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.left,
                           style: AppStyle.txtPoppinsMedium16,
                         ),
                       ),
-                      CustomTextFormField(
-                        focusNode: FocusNode(),
-                        controller: frame213Controller,
-                        hintText: "xyz123",
-                        isObscureText: passwordVisible,
-                        margin: getMargin(
-                          top: 1,
-                        ),
-                        suffix: IconButton(
-                          icon: CustomImageView(
-                            svgPath: ImageConstant.imgEye,
-                          ),
-                          onPressed: () {
-                            setState(
-                              () {
-                                passwordVisible = !passwordVisible;
-                              },
-                            );
-                          },
-                        ),
-                        suffixConstraints: BoxConstraints(
-                          maxHeight: getVerticalSize(
-                            26,
-                          ),
-                        ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            minimumSize: Size(120, 60),
+                            backgroundColor: ColorConstant.indigoA100,
+                            elevation: 3),
+                        onPressed: () {
+                          imageUploadAlert();
+                        },
+                        child: Text('Upload'),
                       ),
-                      Padding(
-                        padding: getPadding(
-                          top: 23,
-                        ),
-                        child: Text(
-                          "Confirm Password",
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.left,
-                          style: AppStyle.txtPoppinsMedium16,
-                        ),
-                      ),
-                      CustomTextFormField(
-                        focusNode: FocusNode(),
-                        controller: frame214Controller,
-                        hintText: "xyz123",
-                        isObscureText: confirmPasswordVisible,
-                        margin: getMargin(
-                          top: 1,
-                        ),
-                        textInputAction: TextInputAction.done,
-                        suffix: IconButton(
-                          icon: CustomImageView(
-                            svgPath: ImageConstant.imgEye,
-                          ),
-                          onPressed: () {
-                            setState(
-                              () {
-                                confirmPasswordVisible =
-                                    !confirmPasswordVisible;
-                              },
-                            );
-                          },
-                        ),
-                        suffixConstraints: BoxConstraints(
-                          maxHeight: getVerticalSize(
-                            26,
-                          ),
-                        ),
-                      ),
-                      // Padding(
-                      //   padding: getPadding(
-                      //     top: 23,
-                      //   ),
-                      //   child: Row(
-                      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //     children: [
-                      //       Container(
-                      //         height: getVerticalSize(
-                      //           52,
-                      //         ),
-                      //         width: getHorizontalSize(
-                      //           155,
-                      //         ),
-                      //         child: Stack(
-                      //           alignment: Alignment.topLeft,
-                      //           children: [
-                      //             CustomDropDown(
-                      //               width: getHorizontalSize(
-                      //                 153,
-                      //               ),
-                      //               focusNode: FocusNode(),
-                      //               icon: Container(
-                      //                 margin: getMargin(
-                      //                   left: 30,
-                      //                   right: 10,
-                      //                 ),
-                      //                 decoration: BoxDecoration(
-                      //                   border: Border.all(
-                      //                     color: ColorConstant.black900,
-                      //                     width: getHorizontalSize(
-                      //                       1,
-                      //                     ),
-                      //                     strokeAlign: strokeAlignCenter,
-                      //                   ),
-                      //                 ),
-                      //                 child: CustomImageView(
-                      //                   svgPath:
-                      //                       ImageConstant.imgArrowdownBlack900,
-                      //                 ),
-                      //               ),
-                      //               hintText: "20 - Jan - 1998",
-                      //               variant:
-                      //                   DropDownVariant.UnderLineBluegray100,
-                      //               fontStyle: DropDownFontStyle
-                      //                   .PoppinsRegular14Black900,
-                      //               alignment: Alignment.bottomCenter,
-                      //               items: dropdownItemList,
-                      //               onChanged: (value) {},
-                      //             ),
-                      //             Align(
-                      //               alignment: Alignment.topLeft,
-                      //               child: Text(
-                      //                 "Date Of Birth",
-                      //                 overflow: TextOverflow.ellipsis,
-                      //                 textAlign: TextAlign.left,
-                      //                 style: AppStyle.txtPoppinsMedium16,
-                      //               ),
-                      //             ),
-                      //           ],
-                      //         ),
-                      //       ),
-                      //       Column(
-                      //         crossAxisAlignment: CrossAxisAlignment.start,
-                      //         mainAxisAlignment: MainAxisAlignment.start,
-                      //         children: [
-                      //           Text(
-                      //             "Country/Region",
-                      //             overflow: TextOverflow.ellipsis,
-                      //             textAlign: TextAlign.left,
-                      //             style: AppStyle.txtPoppinsMedium16,
-                      //           ),
-                      //           CustomDropDown(
-                      //             width: getHorizontalSize(
-                      //               145,
-                      //             ),
-                      //             focusNode: FocusNode(),
-                      //             icon: Container(
-                      //               margin: getMargin(
-                      //                 left: 30,
-                      //               ),
-                      //               decoration: BoxDecoration(
-                      //                 border: Border.all(
-                      //                   color: ColorConstant.black900,
-                      //                   width: getHorizontalSize(
-                      //                     1,
-                      //                   ),
-                      //                   strokeAlign: strokeAlignCenter,
-                      //                 ),
-                      //               ),
-                      //               child: CustomImageView(
-                      //                 svgPath:
-                      //                     ImageConstant.imgArrowdownBlack900,
-                      //               ),
-                      //             ),
-                      //             hintText: "United States",
-                      //             variant: DropDownVariant.None,
-                      //             fontStyle: DropDownFontStyle
-                      //                 .PoppinsRegular14Black900,
-                      //             items: dropdownItemList1,
-                      //             onChanged: (value) {},
-                      //           ),
-                      //           Padding(
-                      //             padding: getPadding(
-                      //               top: 6,
-                      //             ),
-                      //             child: SizedBox(
-                      //               width: getHorizontalSize(
-                      //                 155,
-                      //               ),
-                      //               child: Divider(
-                      //                 height: getVerticalSize(
-                      //                   1,
-                      //                 ),
-                      //                 thickness: getVerticalSize(
-                      //                   1,
-                      //                 ),
-                      //                 color: ColorConstant.blueGray100,
-                      //                 indent: getHorizontalSize(
-                      //                   1,
-                      //                 ),
-                      //               ),
-                      //             ),
-                      //           ),
-                      //         ],
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
-
+                      image != null
+                          ? Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: Image.file(
+                                  //to show image, you type like this.
+                                  File(image!.path),
+                                  fit: BoxFit.cover,
+                                  width: MediaQuery.of(context).size.width,
+                                  height: 300,
+                                ),
+                              ),
+                            )
+                          : Text(
+                              "No Image",
+                              style: TextStyle(fontSize: 20),
+                            ),
                       CustomButton(
                         height: getVerticalSize(
                           50,
                         ),
-                        text: "Create Account",
+                        text: "Raise SOS",
                         margin: getMargin(
                           top: 53,
                         ),
                         shape: ButtonShape.RoundedBorder13,
                         onTap: () {
-                          signupModel["name"] = languageController.text;
-                          signupModel["email"] = emailOneController.text;
-                          signupModel["phone"] = frame212Controller.text;
-                          signupModel["password"] = frame213Controller.text;
-                          signupModel["confirmPassword"] =
-                              frame214Controller.text;
+                          sosModel["name"] = nameController.text;
+                          sosModel["phone"] = phoneController.text;
+                          // sosModel["password"] = imageController.text;
 
-                          if (signupModel["name"]!.isEmpty) {
+                          if (sosModel["name"]!.isEmpty) {
                             showToast("Please enter name");
                             return;
                           }
-                          if (signupModel["email"]!.isEmpty) {
-                            showToast("Please enter email");
-                            return;
-                          }
-                          if (signupModel["phone"]!.isEmpty ||
-                              signupModel["phone"]!.length != 10) {
+                          if (sosModel["phone"]!.isEmpty ||
+                              sosModel["phone"]!.length != 10) {
                             showToast(
                                 "Please enter phone number with 10 digits");
                             return;
                           }
-                          if (signupModel["password"]!.isEmpty) {
-                            showToast("Please enter password");
-                            return;
-                          }
-                          if (signupModel["confirmPassword"]!.isEmpty) {
-                            showToast("Please enter confirm password");
-                            return;
-                          }
-                          if (signupModel["password"] !=
-                              signupModel["confirmPassword"]) {
-                            showToast(
-                                "Password and confirm password does not match");
-                            return;
-                          }
                         },
-                      ),
-                      Align(
-                        alignment: Alignment.center,
-                        child: Padding(
-                          padding: getPadding(
-                            left: 13,
-                            top: 25,
-                            right: 13,
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Already have an account?",
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.left,
-                                style: AppStyle.txtPoppinsMedium16Bluegray400,
-                              ),
-                              Padding(
-                                padding: getPadding(
-                                  left: 0,
-                                ),
-                                child: TextButton(
-                                    child: Text("Sign In",
-                                        overflow: TextOverflow.ellipsis,
-                                        textAlign: TextAlign.left,
-                                        style: AppStyle.txtPoppinsSemiBold16),
-                                    onPressed: () {
-                                      Navigator.popUntil(
-                                          context,
-                                          ModalRoute.withName(
-                                              AppRoutes.loginPage));
-                                    }),
-                              ),
-                            ],
-                          ),
-                        ),
                       ),
                     ],
                   ),
