@@ -19,18 +19,16 @@ class FloodSosScreen extends StatefulWidget {
 
 class _FloodSosScreenState extends State<FloodSosScreen> {
   TextEditingController nameController = TextEditingController();
-
   TextEditingController phoneController = TextEditingController();
-
-  XFile? image;
-
+  List<XFile> imageArray = [];
   final ImagePicker picker = ImagePicker();
+  bool isForYourself = false;
 
   Future getImage(ImageSource media) async {
     var img = await picker.pickImage(source: media);
 
     setState(() {
-      image = img;
+      if (img != null && imageArray.length < 3) imageArray.add(img);
     });
   }
 
@@ -80,9 +78,12 @@ class _FloodSosScreenState extends State<FloodSosScreen> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        minimumSize: Size(120, 60),
+                        minimumSize: Size(100, 50),
                         backgroundColor: ColorConstant.indigoA100,
                         elevation: 3),
+                  ),
+                  SizedBox(
+                    height: 10,
                   ),
                   ElevatedButton(
                     //if user click this button. user can upload image from camera
@@ -100,7 +101,7 @@ class _FloodSosScreenState extends State<FloodSosScreen> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        minimumSize: Size(120, 60),
+                        minimumSize: Size(100, 50),
                         backgroundColor: ColorConstant.indigoA100,
                         elevation: 3),
                   ),
@@ -113,8 +114,8 @@ class _FloodSosScreenState extends State<FloodSosScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as Map;
-    bool isForYourself = args["isForYourself"];
+    // final args = ModalRoute.of(context)!.settings.arguments as Map;
+    // bool isForYourself = args["isForYourself"] ?? false;
 
     return SafeArea(
       child: Scaffold(
@@ -145,7 +146,7 @@ class _FloodSosScreenState extends State<FloodSosScreen> {
                           },
                           child: CustomImageView(
                               svgPath: ImageConstant.imgArrowleftBlack900)),
-                      Padding(padding: getPadding(bottom: 40)),
+                      Padding(padding: getPadding(bottom: 10)),
                       !isForYourself
                           ? Text(
                               "Name of the person in need",
@@ -200,8 +201,9 @@ class _FloodSosScreenState extends State<FloodSosScreen> {
                                     ),
                                   ),
                                   CustomTextFormField(
-                                    width: getHorizontalSize(
-                                      326,
+                                    margin: getMargin(
+                                      left: 1,
+                                      top: 3,
                                     ),
                                     focusNode: FocusNode(),
                                     controller: phoneController,
@@ -213,11 +215,9 @@ class _FloodSosScreenState extends State<FloodSosScreen> {
                             )
                           : Container(),
                       Padding(
-                        padding: getPadding(
-                          top: 24,
-                        ),
+                        padding: getPadding(top: 24),
                         child: Text(
-                          "Upload Flood Images",
+                          "Upload Flood Images (Max 3)",
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.left,
                           style: AppStyle.txtPoppinsMedium16,
@@ -228,32 +228,62 @@ class _FloodSosScreenState extends State<FloodSosScreen> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            minimumSize: Size(120, 60),
-                            backgroundColor: ColorConstant.indigoA100,
+                            minimumSize: Size(90, 30),
+                            backgroundColor: imageArray.length < 3
+                                ? ColorConstant.indigoA100
+                                : ColorConstant.gray200,
                             elevation: 3),
                         onPressed: () {
-                          imageUploadAlert();
+                          if (imageArray.length < 3) imageUploadAlert();
                         },
                         child: Text('Upload'),
                       ),
-                      image != null
-                          ? Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(8),
-                                child: Image.file(
-                                  //to show image, you type like this.
-                                  File(image!.path),
-                                  fit: BoxFit.cover,
-                                  width: MediaQuery.of(context).size.width,
-                                  height: 300,
-                                ),
-                              ),
-                            )
+                      imageArray.isNotEmpty
+                          ? ListView.separated(
+                              scrollDirection: Axis.vertical,
+                              shrinkWrap: true,
+                              itemCount: imageArray.length,
+                              separatorBuilder:
+                                  (BuildContext context, int index) =>
+                                      const Divider(),
+                              itemBuilder: (BuildContext context, int index) {
+                                final imageData = imageArray[index];
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20),
+                                  child: Stack(
+                                    children: <Widget>[
+                                      ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                          child: Image.file(
+                                            File(imageData.path),
+                                            fit: BoxFit.cover,
+                                            width: 100,
+                                            height: 100,
+                                          )),
+                                      Positioned(
+                                        right: -2,
+                                        top: 25,
+                                        child: IconButton(
+                                          icon: Icon(
+                                            Icons.delete,
+                                            color:
+                                                Color.fromARGB(255, 255, 0, 0).withOpacity(0.7),
+                                            size: 22,
+                                          ),
+                                          onPressed: () => setState(() {
+                                            imageArray.removeAt(index);
+                                          }),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                );
+                              })
                           : Text(
                               "No Image",
-                              style: TextStyle(fontSize: 20),
+                              style: AppStyle.txtPoppinsMedium11Gray500,
                             ),
                       CustomButton(
                         height: getVerticalSize(
@@ -261,7 +291,7 @@ class _FloodSosScreenState extends State<FloodSosScreen> {
                         ),
                         text: "Raise SOS",
                         margin: getMargin(
-                          top: 53,
+                          top: 30,
                         ),
                         shape: ButtonShape.RoundedBorder13,
                         onTap: () {
