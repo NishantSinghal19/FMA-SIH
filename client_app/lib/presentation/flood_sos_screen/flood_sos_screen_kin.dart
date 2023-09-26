@@ -115,7 +115,7 @@ class _FloodSosScreenState extends State<FloodSosScreen> {
   @override
   Widget build(BuildContext context) {
     // final args = ModalRoute.of(context)!.settings.arguments as Map;
-    // bool isForYourself = args["isForYourself"] ?? false;
+    // bool isForYourself = args["isForYourself"] == "true" ? true : false;
 
     return SafeArea(
       child: Scaffold(
@@ -214,6 +214,40 @@ class _FloodSosScreenState extends State<FloodSosScreen> {
                               ),
                             )
                           : Container(),
+                      !isForYourself
+                          ? Padding(
+                              padding: getPadding(top: 24),
+                              child: Text(
+                                "Location of the person in need",
+                                overflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.left,
+                                style: AppStyle.txtPoppinsMedium16,
+                              ),
+                            )
+                          : Container(),
+                      !isForYourself
+                          ? CustomTextFormField(
+                              focusNode: FocusNode(),
+                              controller: nameController,
+                              hintText: "Select Location",
+                              margin: getMargin(
+                                left: 1,
+                              ),
+                              suffix: Container(
+                                margin: getMargin(
+                                    left: 30, top: 4, bottom: 4, right: 13),
+                                child: Icon(
+                                  Icons.location_on,
+                                  color: ColorConstant.indigoA100,
+                                ), 
+                              ),
+                              suffixConstraints: BoxConstraints(
+                                maxHeight: getVerticalSize(
+                                  27,
+                                ),
+                              ),
+                            )
+                          : Container(),
                       Padding(
                         padding: getPadding(top: 24),
                         child: Text(
@@ -269,7 +303,8 @@ class _FloodSosScreenState extends State<FloodSosScreen> {
                                           icon: Icon(
                                             Icons.delete,
                                             color:
-                                                Color.fromARGB(255, 255, 0, 0).withOpacity(0.7),
+                                                Color.fromARGB(255, 255, 0, 0)
+                                                    .withOpacity(0.7),
                                             size: 22,
                                           ),
                                           onPressed: () => setState(() {

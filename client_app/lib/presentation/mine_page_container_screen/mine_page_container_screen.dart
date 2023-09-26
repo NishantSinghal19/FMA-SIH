@@ -1,4 +1,7 @@
-import 'package:client_app/presentation/flood_sos_screen/flood_sos_screen.dart';
+import 'package:client_app/presentation/community_screen/community_screen.dart';
+import 'package:client_app/presentation/drainage_screen/drainage_screen.dart';
+import 'package:client_app/presentation/flood_sos_screen/flood_sos_screen_kin.dart';
+import 'package:client_app/presentation/flood_sos_screen/flood_sos_screen_yourself.dart';
 import 'package:client_app/presentation/map_location_bottomsheet/map_2.dart';
 import 'package:flutter/material.dart';
 import 'package:client_app/core/app_export.dart';
@@ -80,13 +83,15 @@ class _MinePageContainerScreenState extends State<MinePageContainerScreen> {
   Widget getCurrentPage(String currentRoute) {
     switch (currentRoute) {
       case AppRoutes.drainagePage:
-        return MinePage();
+        return DrainageScreen();
       case AppRoutes.communtiyPage:
-        return StatisticsTabContainerPage();
+        return CommunityScreen ();
       case AppRoutes.mapLocationBottomSheet:
         return MapScreen();
-      case AppRoutes.floodSosScreen:
+      case AppRoutes.floodSosScreenKin:
         return FloodSosScreen();
+      case AppRoutes.floodSosScreenYourself:
+        return FloodSosScreenYourself();
       default:
         return DefaultWidget();
     }

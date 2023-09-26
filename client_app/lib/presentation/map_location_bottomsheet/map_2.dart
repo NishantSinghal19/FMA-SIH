@@ -73,10 +73,10 @@ class _MapState extends State<MapScreen> {
     // });
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -525,7 +525,7 @@ class _MapState extends State<MapScreen> {
                                     backgroundColor: ColorConstant.teal300,
                                     elevation: 5),
                                 onPressed: () {
-                                  onPressedForYourself(context);
+                                  onPressedForYourself(context, "true");
                                 },
                                 child: Text('For Yourself',
                                     style: TextStyle(fontSize: 16)),
@@ -542,7 +542,7 @@ class _MapState extends State<MapScreen> {
                                     backgroundColor: ColorConstant.teal300,
                                     elevation: 5),
                                 onPressed: () {
-                                  onPressedForKin(context);
+                                  onPressedForKin(context, "false");
                                 },
                                 child: Text('For kin',
                                     style: TextStyle(fontSize: 16)),
@@ -572,13 +572,11 @@ class _MapState extends State<MapScreen> {
         });
   }
 
-  onPressedForYourself(BuildContext context) async {
-    Navigator.pushNamed(context, AppRoutes.floodSosScreen,
-        arguments: {'isForYourself': true});
+  onPressedForYourself(BuildContext context, String param) async {
+    Navigator.pushNamed(context, AppRoutes.floodSosScreenYourself, arguments: {'isForYourself': param});
   }
 
-  onPressedForKin(BuildContext context) async {
-    Navigator.pushNamed(context, AppRoutes.floodSosScreen,
-        arguments: {'isForYourself': false});
+  onPressedForKin(BuildContext context, String param) async {
+    Navigator.pushNamed(context, AppRoutes.floodSosScreenKin, arguments: {'isForYourself': param});
   }
 }

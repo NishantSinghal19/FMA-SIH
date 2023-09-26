@@ -1,6 +1,8 @@
 // ignore_for_file: unused_import
 
-import 'package:client_app/presentation/flood_sos_screen/flood_sos_screen.dart';
+import 'package:client_app/presentation/drainage_screen/drainage_screen.dart';
+import 'package:client_app/presentation/flood_sos_screen/flood_sos_screen_kin.dart';
+import 'package:client_app/presentation/flood_sos_screen/flood_sos_screen_yourself.dart';
 import 'package:client_app/presentation/login_page/login_page.dart';
 import 'package:client_app/presentation/login_page/login_page_2.dart';
 import 'package:client_app/presentation/map_location_bottomsheet/map_2.dart';
@@ -16,7 +18,7 @@ import 'package:client_app/presentation/mine_page_container_screen/mine_page_con
 import 'package:client_app/presentation/transfer_screen/transfer_screen.dart';
 import 'package:client_app/presentation/send_money_screen/send_money_screen.dart';
 import 'package:client_app/presentation/currency_exchange_screen/currency_exchange_screen.dart';
-import 'package:client_app/presentation/transfer_amount_screen/transfer_amount_screen.dart';
+import 'package:client_app/presentation/community_screen/community_screen.dart';
 import 'package:client_app/presentation/confirmation_screen/confirmation_screen.dart';
 import 'package:client_app/presentation/transfer_request_screen/transfer_request_screen.dart';
 import 'package:client_app/presentation/history_screen/history_screen.dart';
@@ -77,11 +79,13 @@ class AppRoutes {
 
   static const String mapLocationBottomSheet = '/map_location_bottom_sheet';
   
-  static const String drainagePage = '/drainafe_page';
+  static const String drainagePage = '/drainage_page';
   
   static const String communtiyPage= '/community_page';
 
-  static const String floodSosScreen = '/flood_sos_screen';
+  static const String floodSosScreenKin = '/flood_sos_screen_kin';
+
+  static const String floodSosScreenYourself = '/flood_sos_screen_yourself';
 
   
 
@@ -95,7 +99,7 @@ class AppRoutes {
     transferScreen: (context) => TransferScreen(),
     sendMoneyScreen: (context) => SendMoneyScreen(),
     currencyExchangeScreen: (context) => CurrencyExchangeScreen(),
-    transferAmountScreen: (context) => TransferAmountScreen(),
+    // transferAmountScreen: (context) => TransferAmountScreen(),
     confirmationScreen: (context) => ConfirmationScreen(),
     transferRequestScreen: (context) => TransferRequestScreen(),
     historyScreen: (context) => HistoryScreen(),
@@ -106,8 +110,9 @@ class AppRoutes {
     loginPage: (context) => LoginScreen2(),
     signUpPage: (context) => SignUpPage(),
     mapLocationBottomSheet: (context) => MapScreen(),
-    drainagePage: (context) => MinePage(),
-    communtiyPage: (context) => TransferAmountScreen(),
-    floodSosScreen: (context) => FloodSosScreen(),
+    drainagePage: (context) => DrainageScreen(),
+    communtiyPage: (context) => CommunityScreen(),
+    floodSosScreenKin: (context) => FloodSosScreen(),
+    floodSosScreenYourself: (context) => FloodSosScreenYourself(),
   };
 }

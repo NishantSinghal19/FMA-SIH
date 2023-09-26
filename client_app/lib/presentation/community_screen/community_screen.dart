@@ -5,7 +5,14 @@ import 'package:client_app/widgets/app_bar/appbar_subtitle.dart';
 import 'package:client_app/widgets/app_bar/custom_app_bar.dart';
 import 'package:client_app/widgets/custom_button.dart';
 
-class TransferAmountScreen extends StatelessWidget {
+class CommunityScreen extends StatefulWidget {
+  CommunityScreen({Key? key}) : super(key: key);
+
+  @override
+  _CommunityScreenState createState() => _CommunityScreenState();
+}
+
+class _CommunityScreenState extends State<CommunityScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -21,7 +28,7 @@ class TransferAmountScreen extends StatelessWidget {
                       onTapArrowleft4(context);
                     }),
                 centerTitle: true,
-                title: AppbarSubtitle(text: "Transfer Amount")),
+                title: AppbarSubtitle(text: "Community")),
             body: Container(
                 width: double.maxFinite,
                 child: Column(
