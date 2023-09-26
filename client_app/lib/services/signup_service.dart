@@ -15,7 +15,7 @@ Future<SignupResponse> createSignupResponse(
     String otp,
     BuildContext? currentContext) async {
   final response = await http.post(
-    Uri.parse(serverUrl! + '/users'),
+    Uri.parse(serverUrl! + 'users'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
