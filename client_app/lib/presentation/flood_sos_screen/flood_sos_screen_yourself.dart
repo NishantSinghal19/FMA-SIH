@@ -118,6 +118,7 @@ class _FloodSosScreenState extends State<FloodSosScreenYourself> {
     // bool isForYourself = args["isForYourself"] == "true" ? true : false;
 
     return SafeArea(
+      minimum: EdgeInsets.fromLTRB(0, 10, 0, 0),
       child: Scaffold(
         // backgroundColor: Colors.transparent,
         resizeToAvoidBottomInset: false,
@@ -262,14 +263,15 @@ class _FloodSosScreenState extends State<FloodSosScreenYourself> {
                                             width: 100,
                                             height: 100,
                                           )),
-                                       Positioned(
+                                      Positioned(
                                         right: -2,
                                         top: 25,
                                         child: IconButton(
                                           icon: Icon(
                                             Icons.delete,
                                             color:
-                                                Color.fromARGB(255, 255, 0, 0).withOpacity(0.7),
+                                                Color.fromARGB(255, 255, 0, 0)
+                                                    .withOpacity(0.7),
                                             size: 22,
                                           ),
                                           onPressed: () => setState(() {

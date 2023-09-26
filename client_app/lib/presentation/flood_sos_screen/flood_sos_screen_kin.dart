@@ -118,6 +118,7 @@ class _FloodSosScreenState extends State<FloodSosScreen> {
     // bool isForYourself = args["isForYourself"] == "true" ? true : false;
 
     return SafeArea(
+      minimum: EdgeInsets.fromLTRB(0, 10, 0, 0),
       child: Scaffold(
         // backgroundColor: Colors.transparent,
         resizeToAvoidBottomInset: false,

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:client_app/core/models/drainage_complaint_model.dart';
+import 'package:client_app/widgets/app_bar/appbar_subtitle.dart';
 import 'package:client_app/widgets/app_bar/custom_app_bar.dart';
 import 'package:client_app/widgets/custom_icon_button.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class DrainageScreen extends StatefulWidget {
 class _DrainageScreenState extends State<DrainageScreen> {
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
-  TextEditingController locationController= TextEditingController();
+  TextEditingController locationController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   List<XFile> imageArray = [];
   final ImagePicker picker = ImagePicker();
@@ -113,294 +114,267 @@ class _DrainageScreenState extends State<DrainageScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        // backgroundColor: Colors.transparent,
-        appBar: CustomAppBar(
-          height: getVerticalSize(55),
-          title: Container(
-              // width: getHorizontalSize(251),
-              margin: getMargin(left: 24),
-              child: RichText(
-                  text: TextSpan(children: [
-                    TextSpan(
-                        text: "Help Portal for Water Problems",
-                        style: TextStyle(
-                            color: ColorConstant.black900,
-                            fontSize: getFontSize(20),
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w600))
-                  ]),
-                  textAlign: TextAlign.left)),
-        ),
-
-        resizeToAvoidBottomInset: false,
-        body: SizedBox(
-          width: size.width,
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: getPadding(
-                    left: 24,
-                    top: 24,
-                    right: 24,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Padding(padding: getPadding(bottom: 10)),
-                      Text(
-                        "Name",
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.left,
-                        style: AppStyle.txtPoppinsMedium16,
-                      ),
-                      CustomTextFormField(
-                        focusNode: FocusNode(),
-                        controller: nameController,
-                        hintText: "Dmitry Ponomarev",
-                        margin: getMargin(
-                          left: 1,
-                        ),
-                        suffix: Container(
-                          margin:
-                              getMargin(left: 30, top: 4, bottom: 4, right: 13),
-                          child: CustomImageView(
-                            svgPath: ImageConstant.imgCheckmarkIndigoA100,
+        minimum: EdgeInsets.fromLTRB(0, 10, 0, 0),
+        child: Scaffold(
+            // backgroundColor: Colors.transparent,
+            appBar: CustomAppBar(
+                height: getVerticalSize(49),
+                leadingWidth: 59,
+                centerTitle: true,
+                title: AppbarSubtitle(text: "Help Portal for Water Problems")),
+            resizeToAvoidBottomInset: false,
+            body: SizedBox(
+                width: size.width,
+                child: SingleChildScrollView(
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                      Padding(
+                          padding: getPadding(
+                            left: 24,
+                            top: 24,
+                            right: 24,
                           ),
-                        ),
-                        suffixConstraints: BoxConstraints(
-                          maxHeight: getVerticalSize(
-                            27,
-                          ),
-                        ),
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Please enter name';
-                          }
-                          return null;
-                        },
-                      ),
-                      Container(
-                        height: getVerticalSize(
-                          51,
-                        ),
-                        width: getHorizontalSize(
-                          327,
-                        ),
-                        margin: getMargin(
-                          top: 24,
-                        ),
-                        child: Stack(
-                          alignment: Alignment.bottomCenter,
-                          children: [
-                            Align(
-                              alignment: Alignment.topLeft,
-                              child: Text(
-                                "Phone Number",
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Name",
                                 overflow: TextOverflow.ellipsis,
                                 textAlign: TextAlign.left,
                                 style: AppStyle.txtPoppinsMedium16,
                               ),
-                            ),
-                            CustomTextFormField(
-                              margin: getMargin(
-                                left: 1,
-                                top: 3,
-                              ),
-                              focusNode: FocusNode(),
-                              controller: phoneController,
-                              hintText: "+91-9876543210",
-                              alignment: Alignment.bottomCenter,
-                              suffix: Container(
+                              CustomTextFormField(
+                                focusNode: FocusNode(),
+                                controller: nameController,
+                                hintText: "Dmitry Ponomarev",
                                 margin: getMargin(
-                                    left: 30, top: 4, bottom: 4, right: 13),
-                                child: CustomImageView(
-                                  svgPath: ImageConstant.imgCheckmarkIndigoA100,
+                                  left: 1,
                                 ),
-                              ),
-                              suffixConstraints: BoxConstraints(
-                                maxHeight: getVerticalSize(
-                                  27,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: getPadding(top: 24),
-                        child: Text(
-                          "Location",
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.left,
-                          style: AppStyle.txtPoppinsMedium16,
-                        ),
-                      ),
-                      CustomTextFormField(
-                        focusNode: FocusNode(),
-                        controller: locationController,
-                        hintText: "Select Location",
-                        margin: getMargin(
-                          left: 1,
-                        ),
-                        suffix: Container(
-                          margin:
-                              getMargin(left: 30, top: 4, bottom: 4, right: 13),
-                          child: Icon(
-                            Icons.location_on,
-                            color: ColorConstant.indigoA100,
-                          ),
-                        ),
-                        suffixConstraints: BoxConstraints(
-                          maxHeight: getVerticalSize(
-                            27,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: getPadding(top: 24),
-                        child: Text(
-                          "Brief Description of the Problem",
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.left,
-                          style: AppStyle.txtPoppinsMedium16,
-                        ),
-                      ),
-                      CustomTextFormField(
-                        focusNode: FocusNode(),
-                        controller: descriptionController,
-                        hintText: "Drainage is blocked",
-                        margin: getMargin(
-                          left: 1,
-                        ),
-                        suffix: Container(
-                          margin:
-                              getMargin(left: 30, top: 4, bottom: 4, right: 13),
-                          child: CustomImageView(
-                            svgPath: ImageConstant.imgCheckmarkIndigoA100,
-                          ),
-                        ),
-                        suffixConstraints: BoxConstraints(
-                          maxHeight: getVerticalSize(
-                            27,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: getPadding(top: 24),
-                        child: Text(
-                          "Upload Flood Images (Max 3)",
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.left,
-                          style: AppStyle.txtPoppinsMedium16,
-                        ),
-                      ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            minimumSize: Size(90, 30),
-                            backgroundColor: imageArray.length < 3
-                                ? ColorConstant.indigoA100
-                                : ColorConstant.gray200,
-                            elevation: 3),
-                        onPressed: () {
-                          if (imageArray.length < 3) imageUploadAlert();
-                        },
-                        child: Text('Upload'),
-                      ),
-                      imageArray.isNotEmpty
-                          ? ListView.separated(
-                              scrollDirection: Axis.vertical,
-                              shrinkWrap: true,
-                              itemCount: imageArray.length,
-                              separatorBuilder:
-                                  (BuildContext context, int index) =>
-                                      const Divider(),
-                              itemBuilder: (BuildContext context, int index) {
-                                final imageData = imageArray[index];
-                                return Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20),
-                                  child: Stack(
-                                    children: <Widget>[
-                                      ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                          child: Image.file(
-                                            File(imageData.path),
-                                            fit: BoxFit.cover,
-                                            width: 100,
-                                            height: 100,
-                                          )),
-                                      Positioned(
-                                        right: -2,
-                                        top: 25,
-                                        child: IconButton(
-                                          icon: Icon(
-                                            Icons.delete,
-                                            color:
-                                                Color.fromARGB(255, 255, 0, 0)
-                                                    .withOpacity(0.7),
-                                            size: 22,
-                                          ),
-                                          onPressed: () => setState(() {
-                                            imageArray.removeAt(index);
-                                          }),
-                                        ),
-                                      )
-                                    ],
+                                suffix: Container(
+                                  margin: getMargin(
+                                      left: 30, top: 4, bottom: 4, right: 13),
+                                  child: CustomImageView(
+                                    svgPath:
+                                        ImageConstant.imgCheckmarkIndigoA100,
                                   ),
-                                );
-                              })
-                          : Text(
-                              "No Image",
-                              style: AppStyle.txtPoppinsMedium11Gray500,
-                            ),
-                      CustomButton(
-                        height: getVerticalSize(
-                          50,
-                        ),
-                        text: "File Complaint",
-                        margin: getMargin(
-                          top: 30,
-                        ),
-                        shape: ButtonShape.RoundedBorder13,
-                        onTap: () {
-                          complaintModel.name = nameController.text;
-                          complaintModel.phone = phoneController.text;
-                          complaintModel.location = {
-                            "latitude": locationController.text,
-                            "longitude": locationController.text,
-                          };
-                          complaintModel.description =
-                              descriptionController.text;
-                          complaintModel.images = imageArray;
+                                ),
+                                suffixConstraints: BoxConstraints(
+                                  maxHeight: getVerticalSize(
+                                    27,
+                                  ),
+                                ),
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Please enter name';
+                                  }
+                                  return null;
+                                },
+                              ),
+                              Padding(
+                                padding: getPadding(top: 24),
+                                child: Text(
+                                  "Phone Number",
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.left,
+                                  style: AppStyle.txtPoppinsMedium16,
+                                ),
+                              ),
+                              CustomTextFormField(
+                                margin: getMargin(
+                                  left: 1,
+                                ),
+                                focusNode: FocusNode(),
+                                controller: phoneController,
+                                hintText: "+91-9876543210",
+                                alignment: Alignment.bottomCenter,
+                                suffix: Container(
+                                  margin: getMargin(
+                                      left: 30, top: 4, bottom: 4, right: 13),
+                                  child: CustomImageView(
+                                    svgPath:
+                                        ImageConstant.imgCheckmarkIndigoA100,
+                                  ),
+                                ),
+                                suffixConstraints: BoxConstraints(
+                                  maxHeight: getVerticalSize(
+                                    27,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: getPadding(top: 24),
+                                child: Text(
+                                  "Location",
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.left,
+                                  style: AppStyle.txtPoppinsMedium16,
+                                ),
+                              ),
+                              CustomTextFormField(
+                                focusNode: FocusNode(),
+                                controller: locationController,
+                                hintText: "Select Location",
+                                margin: getMargin(
+                                  left: 1,
+                                ),
+                                suffix: Container(
+                                  margin: getMargin(
+                                      left: 30, top: 4, bottom: 4, right: 13),
+                                  child: Icon(
+                                    Icons.location_on,
+                                    color: ColorConstant.indigoA100,
+                                  ),
+                                ),
+                                suffixConstraints: BoxConstraints(
+                                  maxHeight: getVerticalSize(
+                                    27,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: getPadding(top: 24),
+                                child: Text(
+                                  "Brief Description of the Problem",
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.left,
+                                  style: AppStyle.txtPoppinsMedium16,
+                                ),
+                              ),
+                              CustomTextFormField(
+                                focusNode: FocusNode(),
+                                controller: descriptionController,
+                                hintText: "Drainage is blocked",
+                                margin: getMargin(
+                                  left: 1,
+                                ),
+                                suffix: Container(
+                                  margin: getMargin(
+                                      left: 30, top: 4, bottom: 4, right: 13),
+                                  child: CustomImageView(
+                                    svgPath:
+                                        ImageConstant.imgCheckmarkIndigoA100,
+                                  ),
+                                ),
+                                suffixConstraints: BoxConstraints(
+                                  maxHeight: getVerticalSize(
+                                    27,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: getPadding(top: 24),
+                                child: Text(
+                                  "Image Proof (Max 3)",
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.left,
+                                  style: AppStyle.txtPoppinsMedium16,
+                                ),
+                              ),
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    minimumSize: Size(90, 30),
+                                    backgroundColor: imageArray.length < 3
+                                        ? ColorConstant.indigoA100
+                                        : ColorConstant.gray200,
+                                    elevation: 3),
+                                onPressed: () {
+                                  if (imageArray.length < 3) imageUploadAlert();
+                                },
+                                child: Text('Upload'),
+                              ),
+                              imageArray.isNotEmpty
+                                  ? ListView.separated(
+                                      scrollDirection: Axis.vertical,
+                                      shrinkWrap: true,
+                                      itemCount: imageArray.length,
+                                      separatorBuilder:
+                                          (BuildContext context, int index) =>
+                                              const Divider(),
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        final imageData = imageArray[index];
+                                        return Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 20),
+                                          child: Stack(
+                                            children: <Widget>[
+                                              ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                  child: Image.file(
+                                                    File(imageData.path),
+                                                    fit: BoxFit.cover,
+                                                    width: 100,
+                                                    height: 100,
+                                                  )),
+                                              Positioned(
+                                                right: -2,
+                                                top: 25,
+                                                child: IconButton(
+                                                  icon: Icon(
+                                                    Icons.delete,
+                                                    color: Color.fromARGB(
+                                                            255, 255, 0, 0)
+                                                        .withOpacity(0.7),
+                                                    size: 22,
+                                                  ),
+                                                  onPressed: () => setState(() {
+                                                    imageArray.removeAt(index);
+                                                  }),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        );
+                                      })
+                                  : Text(
+                                      "No Image",
+                                      style: AppStyle.txtPoppinsMedium11Gray500,
+                                    ),
+                              CustomButton(
+                                height: getVerticalSize(
+                                  50,
+                                ),
+                                text: "File Complaint",
+                                margin: getMargin(
+                                  top: 30,
+                                ),
+                                shape: ButtonShape.RoundedBorder13,
+                                onTap: () {
+                                  complaintModel.name = nameController.text;
+                                  complaintModel.phone = phoneController.text;
+                                  complaintModel.location = {
+                                    "latitude": locationController.text,
+                                    "longitude": locationController.text,
+                                  };
+                                  complaintModel.description =
+                                      descriptionController.text;
+                                  complaintModel.images = imageArray;
 
-                          if (complaintModel.name.isEmpty || complaintModel.name.length == 0 || complaintModel.description.isEmpty || complaintModel.description.isEmpty || complaintModel.phone.isEmpty || complaintModel.phone.isEmpty) {
-                            showToast("Please enter all fields");
-                            return;
-                          }
-                          if (complaintModel.phone.length != 10) {
-                            showToast(
-                                "Please enter phone number with 10 digits");
-                            return;
-                          }
-                        },
-                      ),
-                    ],
-                  )
-                )
-              ]
-            )
-          )
-        )
-      )
-    );
+                                  if (complaintModel.name.isEmpty ||
+                                      complaintModel.name.length == 0 ||
+                                      complaintModel.description.isEmpty ||
+                                      complaintModel.description.isEmpty ||
+                                      complaintModel.phone.isEmpty ||
+                                      complaintModel.phone.isEmpty) {
+                                    showToast("Please enter all fields");
+                                    return;
+                                  }
+                                  if (complaintModel.phone.length != 10) {
+                                    showToast(
+                                        "Please enter phone number with 10 digits");
+                                    return;
+                                  }
+                                },
+                              ),
+                            ],
+                          ))
+                    ])))));
   }
 }
 

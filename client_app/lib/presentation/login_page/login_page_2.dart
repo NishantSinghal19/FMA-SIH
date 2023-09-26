@@ -18,7 +18,7 @@ class LoginScreen2 extends StatelessWidget {
             resizeToAvoidBottomInset: false,
             body: Container(
                 width: double.maxFinite,
-                padding: getPadding(top: 50, left: 24, right: 24),
+                padding: getPadding(top: 40, left: 24, right: 24),
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [

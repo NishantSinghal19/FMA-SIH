@@ -7,6 +7,7 @@ import 'package:client_app/core/utils/image_constant.dart';
 import 'package:client_app/core/utils/size_utils.dart';
 import 'package:client_app/routes/app_routes.dart';
 import 'package:client_app/services/ffis_service.dart';
+import 'package:client_app/widgets/app_bar/appbar_subtitle.dart';
 import 'package:client_app/widgets/app_bar/custom_app_bar.dart';
 import 'package:client_app/widgets/custom_floating_button.dart';
 import 'package:client_app/widgets/custom_image_view.dart';
@@ -109,31 +110,12 @@ class _MapState extends State<MapScreen> {
               minimum: EdgeInsets.fromLTRB(0, 10, 0, 0),
               child: Scaffold(
                   appBar: CustomAppBar(
-                      height: getVerticalSize(55),
-                      title: Container(
-                          width: getHorizontalSize(111),
-                          margin: getMargin(left: 24, top: 25),
-                          child: RichText(
-                              text: TextSpan(children: [
-                                TextSpan(
-                                    text: "Map\n",
-                                    style: TextStyle(
-                                        color: ColorConstant.black900,
-                                        fontSize: getFontSize(24),
-                                        fontFamily: 'Poppins',
-                                        fontWeight: FontWeight.w600)),
-                              ]),
-                              textAlign: TextAlign.left)),
-                      actions: [
-                        CustomImageView(
-                            imagePath: ImageConstant.imgEllipse30840x40,
-                            height: getSize(40),
-                            width: getSize(40),
-                            radius:
-                                BorderRadius.circular(getHorizontalSize(20)),
-                            margin: getMargin(
-                                left: 24, top: 6, right: 24, bottom: 6))
-                      ]),
+                    height: getVerticalSize(49),
+                    leadingWidth: 59,
+                    centerTitle: true,
+                    title:
+                        AppbarSubtitle(text: "Flood Management Portal"),
+                  ),
                   body: Stack(
                     children: [
                       OSMFlutter(
@@ -573,10 +555,12 @@ class _MapState extends State<MapScreen> {
   }
 
   onPressedForYourself(BuildContext context, String param) async {
-    Navigator.pushNamed(context, AppRoutes.floodSosScreenYourself, arguments: {'isForYourself': param});
+    Navigator.pushNamed(context, AppRoutes.floodSosScreenYourself,
+        arguments: {'isForYourself': param});
   }
 
   onPressedForKin(BuildContext context, String param) async {
-    Navigator.pushNamed(context, AppRoutes.floodSosScreenKin, arguments: {'isForYourself': param});
+    Navigator.pushNamed(context, AppRoutes.floodSosScreenKin,
+        arguments: {'isForYourself': param});
   }
 }

@@ -2,14 +2,12 @@ import 'package:client_app/presentation/community_screen/community_screen.dart';
 import 'package:client_app/presentation/drainage_screen/drainage_screen.dart';
 import 'package:client_app/presentation/flood_sos_screen/flood_sos_screen_kin.dart';
 import 'package:client_app/presentation/flood_sos_screen/flood_sos_screen_yourself.dart';
+import 'package:client_app/presentation/login_page/login_page.dart';
 import 'package:client_app/presentation/map_location_bottomsheet/map_2.dart';
+import 'package:client_app/presentation/profile_screen/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:client_app/core/app_export.dart';
-import 'package:client_app/presentation/mine_page/mine_page.dart';
-import 'package:client_app/presentation/national_bank_page/national_bank_page.dart';
-import 'package:client_app/presentation/statistics_tab_container_page/statistics_tab_container_page.dart';
 import 'package:client_app/widgets/custom_bottom_app_bar.dart';
-import 'package:client_app/widgets/custom_floating_button.dart';
 import 'package:client_app/services/localstorage_service.dart';
 
 // ignore_for_file: must_be_immutable
@@ -92,6 +90,10 @@ class _MinePageContainerScreenState extends State<MinePageContainerScreen> {
         return FloodSosScreen();
       case AppRoutes.floodSosScreenYourself:
         return FloodSosScreenYourself();
+      case AppRoutes.profileScreen:
+        return ProfileScreen();
+      case AppRoutes.loginPage:
+        return LoginPage();
       default:
         return DefaultWidget();
     }
